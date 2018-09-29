@@ -1,0 +1,44 @@
+
+% -------------------    Question 1 ------------------- %
+
+count=3;
+
+% 10 grayscale images and store in a stucture
+S(1:10) = struct('Image', [], 'Label', '');
+for j = 1:count
+  S(j).Image = grayscale_generator(count);
+  S(j).Label = j;
+end
+
+% add additive zero-mean Gaussian noise to all those images
+variance = 4.0 
+for j = 1:count
+    S(j).Image = imnoise(S(j).Image,'gaussian', 0, variance);
+end
+
+
+% estimate the noise - Lookup Formula ToDo
+% https://www.mathworks.com/matlabcentral/answers/229766-how-calculate-the-background-noise-in-an-image
+noise = estimate_noise(S)
+
+
+% -------------------    Question 2 ------------------- %
+
+% 3*3 Box Filter 
+filterSize = 3;
+for j = 1:count
+    S(j).Image = imboxfilt(S(j).Image, filterSize);
+end
+
+% estimate the noise - Lookup Formula ToDo
+
+
+
+
+% -------------------    Question 3 ------------------- %
+% https://www.mathworks.com/help/images/ref/fspecial.html
+% https://stackoverflow.com/questions/27499057/how-do-i-create-and-apply-a-gaussian-filter-in-matlab-without-using-fspecial-im#27500953
+hsize = 5;
+sigma = 1.4;
+gaussian_filter = fspecial('gaussian',hsize,sigma)
+
