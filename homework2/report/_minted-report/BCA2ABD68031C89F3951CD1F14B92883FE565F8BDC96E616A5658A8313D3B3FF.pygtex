@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sum\PYGZus{}sq\PYGZus{}diff} \PYG{p}{=}
+
+     \PYG{l+m+mi}{0}
+
+
+\PYG{n}{sigma} \PYG{p}{=}
+
+    \PYG{l+m+mf}{0.6733}
+
+\PYG{n}{Estimated} \PYG{n}{noise} \PYG{n}{in} \PYG{n}{the} \PYG{n}{images}\PYG{p}{:} \PYG{l+m+mf}{0.67326}
+\end{Verbatim}

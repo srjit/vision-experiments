@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{filterSize} \PYG{p}{=} \PYG{l+m+mi}{3}\PYG{p}{;}
+\PYG{k}{for} \PYG{n+nb}{j} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{count}
+    \PYG{n}{ImgArray}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{).}\PYG{n}{Image} \PYG{p}{=} \PYG{n}{imboxfilt}\PYG{p}{(}\PYG{n}{ImgArray}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{).}\PYG{n}{Image}\PYG{p}{,} \PYG{n}{filterSize}\PYG{p}{);}
+\PYG{k}{end}
+
+\PYG{c}{\PYGZpc{} use the function implemented for question 1}
+\PYG{n}{noise} \PYG{p}{=} \PYG{n}{estimate\PYGZus{}noise}\PYG{p}{(}\PYG{n}{ImgArray}\PYG{p}{,} \PYG{n}{width}\PYG{p}{,} \PYG{n}{height}\PYG{p}{,} \PYG{n}{count}\PYG{p}{);}
+\PYG{n+nb}{disp}\PYG{p}{(}\PYGZdq{}\PYG{n}{Estimated} \PYG{n}{noise} \PYG{n}{in} \PYG{n}{the} \PYG{n}{images}\PYG{p}{:} \PYGZdq{} \PYG{o}{+} \PYG{n}{noise}\PYG{p}{)}
+\end{Verbatim}

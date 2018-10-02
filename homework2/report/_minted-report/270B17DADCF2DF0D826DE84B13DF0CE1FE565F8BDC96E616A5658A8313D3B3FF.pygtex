@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{gaussian\PYGZus{}filter} \PYG{p}{=}
+
+    \PYG{l+m+mf}{0.0008}    \PYG{l+m+mf}{0.0030}    \PYG{l+m+mf}{0.0065}    \PYG{l+m+mf}{0.0084}    \PYG{l+m+mf}{0.0065}    \PYG{l+m+mf}{0.0030}    \PYG{l+m+mf}{0.0008}
+    \PYG{l+m+mf}{0.0030}    \PYG{l+m+mf}{0.0108}    \PYG{l+m+mf}{0.0232}    \PYG{l+m+mf}{0.0299}    \PYG{l+m+mf}{0.0232}    \PYG{l+m+mf}{0.0108}    \PYG{l+m+mf}{0.0030}
+    \PYG{l+m+mf}{0.0065}    \PYG{l+m+mf}{0.0232}    \PYG{l+m+mf}{0.0498}    \PYG{l+m+mf}{0.0643}    \PYG{l+m+mf}{0.0498}    \PYG{l+m+mf}{0.0232}    \PYG{l+m+mf}{0.0065}
+    \PYG{l+m+mf}{0.0084}    \PYG{l+m+mf}{0.0299}    \PYG{l+m+mf}{0.0643}    \PYG{l+m+mf}{0.0830}    \PYG{l+m+mf}{0.0643}    \PYG{l+m+mf}{0.0299}    \PYG{l+m+mf}{0.0084}
+    \PYG{l+m+mf}{0.0065}    \PYG{l+m+mf}{0.0232}    \PYG{l+m+mf}{0.0498}    \PYG{l+m+mf}{0.0643}    \PYG{l+m+mf}{0.0498}    \PYG{l+m+mf}{0.0232}    \PYG{l+m+mf}{0.0065}
+    \PYG{l+m+mf}{0.0030}    \PYG{l+m+mf}{0.0108}    \PYG{l+m+mf}{0.0232}    \PYG{l+m+mf}{0.0299}    \PYG{l+m+mf}{0.0232}    \PYG{l+m+mf}{0.0108}    \PYG{l+m+mf}{0.0030}
+    \PYG{l+m+mf}{0.0008}    \PYG{l+m+mf}{0.0030}    \PYG{l+m+mf}{0.0065}    \PYG{l+m+mf}{0.0084}    \PYG{l+m+mf}{0.0065}    \PYG{l+m+mf}{0.0030}    \PYG{l+m+mf}{0.0008}
+\end{Verbatim}

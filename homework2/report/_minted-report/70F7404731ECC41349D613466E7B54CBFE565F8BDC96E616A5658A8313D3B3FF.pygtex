@@ -1,0 +1,57 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }gray\PYGZus{}img \PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{grayscale\PYGZus{}generator}\PYG{p}{(}w,h\PYG{p}{)}
+\PYG{+w}{    }\PYG{n}{gray\PYGZus{}img} \PYG{p}{=} \PYG{n}{im2double}\PYG{p}{(}\PYG{l+m+mi}{128} \PYG{o}{*} \PYG{n+nb}{ones}\PYG{p}{(}\PYG{n}{w}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}uint8\PYGZsq{}}\PYG{p}{));}
+\PYG{k}{end}
+
+\PYG{k}{function}\PYG{+w}{ }sigma \PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{estimate\PYGZus{}noise}\PYG{p}{(}ImageArray, width, height, count\PYG{p}{)}
+
+\PYG{+w}{    }\PYG{c}{\PYGZpc{} calculation of E(i,j)}
+    \PYG{n}{E} \PYG{p}{=} \PYG{n}{double}\PYG{p}{(}\PYG{n+nb}{zeros}\PYG{p}{(}\PYG{n}{height}\PYG{p}{,}\PYG{n}{width}\PYG{p}{));}
+    \PYG{c}{\PYGZpc{}E = im2double(E)}
+
+    \PYG{k}{for} \PYG{n}{k} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{count}
+        \PYG{k}{for} \PYG{n+nb}{i} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{width}
+            \PYG{k}{for} \PYG{n+nb}{j} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{height}
+                \PYG{n}{E}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{p}{=} \PYG{n}{E}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{+} \PYG{n}{double}\PYG{p}{(}\PYG{n}{ImageArray}\PYG{p}{(}\PYG{n}{k}\PYG{p}{).}\PYG{n}{Image}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{));}
+            \PYG{k}{end}
+        \PYG{k}{end}
+    \PYG{k}{end}
+
+    \PYG{n}{E} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{o}{/}\PYG{n}{count} \PYG{o}{*} \PYG{n}{E}\PYG{p}{;}
+
+    \PYG{c}{\PYGZpc{} calculation of standard deviation of E(i,j)}
+    \PYG{n}{sum\PYGZus{}sq\PYGZus{}diff} \PYG{p}{=} \PYG{l+m+mi}{0}
+
+    \PYG{k}{for} \PYG{n}{k} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{count}
+        \PYG{k}{for} \PYG{n+nb}{i} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{width}
+            \PYG{k}{for} \PYG{n+nb}{j} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{height}
+                \PYG{n}{sum\PYGZus{}sq\PYGZus{}diff} \PYG{p}{=} \PYG{n}{sum\PYGZus{}sq\PYGZus{}diff} \PYG{o}{+} \PYG{p}{(}\PYG{n}{E}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{n}{double}\PYG{p}{(}\PYG{n}{ImageArray}\PYG{p}{(}\PYG{n}{k}\PYG{p}{).}\PYG{n}{Image}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)))}\PYGZca{}\PYG{l+m+mi}{2}\PYG{p}{;}
+            \PYG{k}{end}
+        \PYG{k}{end}
+    \PYG{k}{end}
+
+    \PYG{n}{sigma} \PYG{p}{=} \PYG{n+nb}{sqrt}\PYG{p}{(((}\PYG{l+m+mi}{1}\PYG{o}{/}\PYG{p}{(}\PYG{n}{count} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{))} \PYG{o}{*} \PYG{n}{sum\PYGZus{}sq\PYGZus{}diff}\PYG{p}{))}
+
+\PYG{k}{end}
+
+\PYG{n}{count} \PYG{p}{=} \PYG{l+m+mi}{10}\PYG{p}{;}
+\PYG{n}{width} \PYG{p}{=} \PYG{l+m+mi}{256}\PYG{p}{;}
+\PYG{n}{height} \PYG{p}{=} \PYG{l+m+mi}{256}\PYG{p}{;}
+
+
+\PYG{c}{\PYGZpc{} 10 grayscale images and store in a stucture}
+\PYG{n}{ImgArray}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{count}\PYG{p}{)} \PYG{p}{=} \PYG{n}{struct}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}Image\PYGZsq{}}\PYG{p}{,} \PYG{p}{[],} \PYG{l+s}{\PYGZsq{}Label\PYGZsq{}}\PYG{p}{,} \PYG{l+s}{\PYGZsq{}\PYGZsq{}}\PYG{p}{);}
+\PYG{k}{for} \PYG{n+nb}{j} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{count}
+  \PYG{n}{ImgArray}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{).}\PYG{n}{Image} \PYG{p}{=} \PYG{n}{grayscale\PYGZus{}generator}\PYG{p}{(}\PYG{n}{width}\PYG{p}{,} \PYG{n}{height}\PYG{p}{);}
+  \PYG{n}{ImgArray}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{).}\PYG{n}{Label} \PYG{p}{=} \PYG{n+nb}{j}\PYG{p}{;}
+\PYG{k}{end}
+
+\PYG{c}{\PYGZpc{} add additive zero\PYGZhy{}mean Gaussian noise to all those images}
+\PYG{n}{variance} \PYG{p}{=} \PYG{p}{(}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{255}\PYG{o}{*}\PYG{l+m+mi}{255}\PYG{p}{)}
+\PYG{k}{for} \PYG{n+nb}{j} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{count}
+    \PYG{n}{ImgArray}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{).}\PYG{n}{Image} \PYG{p}{=} \PYG{n}{imnoise}\PYG{p}{(}\PYG{n}{ImgArray}\PYG{p}{(}\PYG{n+nb}{j}\PYG{p}{).}\PYG{n}{Image}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}gaussian\PYGZsq{}}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{variance}\PYG{p}{);}
+\PYG{k}{end}
+
+\PYG{n}{noise} \PYG{p}{=} \PYG{n}{estimate\PYGZus{}noise}\PYG{p}{(}\PYG{n}{ImgArray}\PYG{p}{,} \PYG{n}{width}\PYG{p}{,} \PYG{n}{height}\PYG{p}{,} \PYG{n}{count}\PYG{p}{);}
+\PYG{n+nb}{disp}\PYG{p}{(}\PYGZdq{}\PYG{n}{Estimated} \PYG{n}{noise} \PYG{n}{in} \PYG{n}{the} \PYG{n}{images}\PYG{p}{:} \PYGZdq{} \PYG{o}{+} \PYG{n}{noise}\PYG{p}{)}
+\end{Verbatim}
