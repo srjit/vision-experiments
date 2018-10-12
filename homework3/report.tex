@@ -1,0 +1,133 @@
+
+\documentclass{article}
+%\usepackage[utf8]{inputenc}
+%\usepackage[a4paper, total={7in, 8in}]{geometry}
+\usepackage[left=15mm,top=26mm,right=8mm,bottom=15mm]{geometry}
+
+\usepackage{spverbatim}
+\usepackage{minted}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+%\setlength{\voffset}{-0.75in}
+%\setlength{\headsep}{-10pt}
+
+
+\title{EECE 5639- Homework 3}
+\author{Sreejith Sreekumar: 001277209}
+\date{\today}
+\begin{document}
+
+\maketitle
+
+\section{Question 1}
+
+\begin{minted}{Matlab}
+
+  %Creating the image in the question
+  function image = get_image()
+    image = zeros(8, 8);
+    
+    for x = 1:8
+        for y = 1:8
+            image(x,y) = abs(x-y);
+        end
+    end
+  end
+\end{minted}
+
+\subsection{Prewitt Mask}
+\begin{minted}{Matlab}
+  [PGmag, PGdir] = imgradient(image,'prewitt');
+  disp(PGmag);
+  disp(PGdir);
+
+  % Output - Disregarding boundaries
+
+        % Gradient Magnitude
+  
+             0    5.6569    8.4853    8.4853    8.4853    8.4853    
+        5.6569         0    5.6569    8.4853    8.4853    8.4853    
+        8.4853    5.6569         0    5.6569    8.4853    8.4853    
+        8.4853    8.4853    5.6569         0    5.6569    8.4853    
+        8.4853    8.4853    8.4853    5.6569         0    5.6569    
+        8.4853    8.4853    8.4853    8.4853    5.6569         0   
+
+        % Gradient Orientation
+
+
+                0   45.0000   45.0000   45.0000   45.0000   45.0000   
+        -135.0000         0   45.0000   45.0000   45.0000   45.0000   
+        -135.0000 -135.0000         0   45.0000   45.0000   45.0000   
+        -135.0000 -135.0000 -135.0000         0   45.0000   45.0000   
+        -135.0000 -135.0000 -135.0000 -135.0000         0   45.0000   
+        -135.0000 -135.0000 -135.0000 -135.0000 -135.0000         0   
+\end{minted}
+
+\pagebreak
+
+\subsection{Sobel Mask}
+
+\begin{minted}{Matlab}
+  [SGmag, SGdir] = imgradientxy(image);
+  disp(SGmag);
+  disp(SGdir);
+
+  % Output - Disregarding boundaries
+
+        % Gradient Magnitude
+
+             0     6     8     8     8     8     
+            -6     0     6     8     8     8     
+            -8    -6     0     6     8     8     
+            -8    -8    -6     0     6     8     
+            -8    -8    -8    -6     0     6     
+            -8    -8    -8    -8    -6     0     
+            -8    -8    -8    -8    -8    -6    
+
+
+        % Gradient Orientation            
+
+            0    -6    -8    -8    -8    -8    
+            6     0    -6    -8    -8    -8    
+            8     6     0    -6    -8    -8    
+            8     8     6     0    -6    -8    
+            8     8     8     6     0    -6    
+            8     8     8     8     6     0    
+\end{minted}
+
+
+\section{Question 3}
+
+\begin{minted}{Matlab}
+
+function image = get_image_with_corners()
+    image = zeros(21,20);
+    for x = 11:21
+        for y = 1:10
+            image(x,y) = 40;
+        end
+    end
+    
+    for x = 1:10
+        for y = 11:20
+            image(x,y) = 40;
+        end
+    end    
+end
+
+img2 = get_image_with_corners();
+[Gx,Gy] = imgradientxy(img2);
+
+for i=1:21
+    for j=1:20
+       CMatrix(:,:,i,j) = CreateCMatrix(Gx(i,j), Gy(i,j)); 
+    end
+end
+  
+\end{minted}  
+
+\end{document}
+
