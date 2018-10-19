@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{cross\PYGZus{}correlation\PYGZus{}score} \PYG{p}{=} \PYG{n}{imfilter}\PYG{p}{(}\PYG{n}{image}\PYG{p}{,}\PYG{n}{template}\PYG{p}{);}
+\PYG{n}{cross\PYGZus{}correlation\PYGZus{}score}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,:)} \PYG{p}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{n}{cross\PYGZus{}correlation\PYGZus{}score}\PYG{p}{(:,}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{p}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{n}{cross\PYGZus{}correlation\PYGZus{}score}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{,:)} \PYG{p}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{n}{cross\PYGZus{}correlation\PYGZus{}score}\PYG{p}{(:,}\PYG{l+m+mi}{8}\PYG{p}{)} \PYG{p}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{n+nb}{disp}\PYG{p}{(}\PYGZdq{}\PYG{n}{Cross} \PYG{n}{Correlation} \PYG{n}{score}\PYGZdq{}\PYG{p}{);}
+\PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{cross\PYGZus{}correlation\PYGZus{}score}\PYG{p}{);}
+
+\PYG{n}{Cross} \PYG{n}{Correlation} \PYG{n}{score}
+
+     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}
+     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{4}     \PYG{l+m+mi}{4}     \PYG{l+m+mi}{2}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}
+     \PYG{l+m+mi}{0}    \PYG{l+m+mi}{10}    \PYG{l+m+mi}{14}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{2}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{2}     \PYG{l+m+mi}{0}
+     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{4}     \PYG{l+m+mi}{4}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{4}     \PYG{l+m+mi}{0}
+     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{4}     \PYG{l+m+mi}{5}     \PYG{l+m+mi}{2}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{4}    \PYG{l+m+mi}{10}     \PYG{l+m+mi}{0}
+     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{3}     \PYG{l+m+mi}{1}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{4}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{0}
+     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{4}     \PYG{l+m+mi}{1}     \PYG{l+m+mi}{2}     \PYG{l+m+mi}{8}    \PYG{l+m+mi}{12}     \PYG{l+m+mi}{0}
+     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{0}
+\end{Verbatim}
