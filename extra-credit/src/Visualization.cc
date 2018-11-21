@@ -1,4 +1,8 @@
 # include <opencv2/opencv.hpp>
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace cv;
 using namespace std;
@@ -11,7 +15,9 @@ void imageCorrespondences(Mat im1,
 
   // Test visualize correspondences
   Mat combined;
+  Mat foo;
   hconcat(im1, im2, combined);
+  cvtColor(combined, foo, COLOR_GRAY2BGR);   
 
 
   // Draw Lines
@@ -20,7 +26,13 @@ void imageCorrespondences(Mat im1,
     int c1 = mappings[t].coordinate1[1];
     int r2 = mappings[t].coordinate2[0];
     int c2 = mappings[t].coordinate2[1];
-    line(combined, Point(c1, r1), Point(c2+im1.cols, r2), 255, 1, 8);
+
+    int r = 0 + ( std::rand() % ( 255 - 0 + 1 ) );
+    int g = 0 + ( std::rand() % ( 255 - 0 + 1 ) );
+    int b = 0 + ( std::rand() % ( 255 - 0 + 1 ) );    
+
+
+    line(foo, Point(c1, r1), Point(c2+im1.cols, r2), CV_RGB(r, g, b), 1, 8);    
   }
 
   // Draw Corners on Image 1
@@ -28,7 +40,8 @@ void imageCorrespondences(Mat im1,
     int r = get<1>(corners[0][t]);
     int c = get<2>(corners[0][t]);
     // Point defined as (c,r) because it is x,y?
-    circle(combined, Point(c,r), 4.0, Scalar(255), 1, 8);
+    //    circle(combined, Point(c,r), 4.0, Scalar(255), 1, 8);
+    circle(foo, Point(c,r), 4.0, Scalar(0), 1, 8);    
   }
 
   // Draw Corners on Image 2
@@ -36,13 +49,14 @@ void imageCorrespondences(Mat im1,
     int r = get<1>(corners[1][t]);
     int c = get<2>(corners[1][t]) + im1.cols;
     // Point defined as (c,r) because it is x,y?
-    circle(combined, Point(c,r), 4.0, Scalar(0), 1, 8);
+    //    circle(combined, Point(c,r), 4.0, Scalar(0), 1, 8);
+    circle(foo, Point(c,r), 4.0, Scalar(0), 1, 8);    
   }
 
   // Display test frame
   namedWindow( "Sample Lines", WINDOW_AUTOSIZE );
-  Mat sampleLines = combined;
-  imshow("Sample Lines", combined);
+  Mat sampleLines = foo;
+  imshow("Sample Lines", foo);
   waitKey(0);
 
 }
