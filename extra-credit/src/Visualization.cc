@@ -39,8 +39,6 @@ void imageCorrespondences(Mat im1,
   for (int t = 0; t < corners[0].size(); ++t){
     int r = get<1>(corners[0][t]);
     int c = get<2>(corners[0][t]);
-    // Point defined as (c,r) because it is x,y?
-    //    circle(combined, Point(c,r), 4.0, Scalar(255), 1, 8);
     circle(foo, Point(c,r), 4.0, Scalar(0), 1, 8);    
   }
 
@@ -48,8 +46,6 @@ void imageCorrespondences(Mat im1,
   for (int t = 0; t < corners[1].size(); ++t){
     int r = get<1>(corners[1][t]);
     int c = get<2>(corners[1][t]) + im1.cols;
-    // Point defined as (c,r) because it is x,y?
-    //    circle(combined, Point(c,r), 4.0, Scalar(0), 1, 8);
     circle(foo, Point(c,r), 4.0, Scalar(0), 1, 8);    
   }
 

@@ -8,11 +8,11 @@
 #include <eigen3/Eigen/SVD>
 #include <eigen3/Eigen/Dense>
 
-# include <stdio.h>
-# include <iostream>
-# include <opencv2/opencv.hpp>
-# include <opencv2/core/eigen.hpp>
-# include <opencv2/highgui.hpp>
+#include <stdio.h>
+#include <iostream>
+#include <opencv2/opencv.hpp>
+#include <opencv2/core/eigen.hpp>
+#include <opencv2/highgui.hpp>
 
 using namespace std;
 using namespace cv;
@@ -70,7 +70,18 @@ int main(){
   Mat im2 = gray_images[1];
   imageCorrespondences(im1, im2, mappings, corners);
 
-  std::cout<<mappings[0].correlation;
+
+  /**
+   *   Calculation of the fundemental Matrix
+   *   Construct the matrix 
+   *
+   *  http://answers.opencv.org/question/20574/please-give-me-an-example-code-for-finding-svd-of-an-image-in-c-or-c-using-opencv/
+   */
+  std::cout<<mappings.size();
+
+  constructPointsMatrix(mappings)
+  
+  
 
   
   // /**
