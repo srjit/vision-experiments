@@ -2,6 +2,7 @@
 #include "Preprocess.cc"
 #include "Corners.cc"
 #include "Visualization.cc"
+#include "Utils.cc"
 
 #include <algorithm>
 #include <random>
@@ -13,6 +14,8 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/core/eigen.hpp>
 #include <opencv2/highgui.hpp>
+
+
 
 using namespace std;
 using namespace cv;
@@ -76,10 +79,29 @@ int main(){
    *   Construct the matrix 
    *
    *  http://answers.opencv.org/question/20574/please-give-me-an-example-code-for-finding-svd-of-an-image-in-c-or-c-using-opencv/
+   *
+   *  
+   *
    */
   std::cout<<mappings.size();
 
-  constructPointsMatrix(mappings)
+  cv::Mat A = constructPointsMatrix(mappings);
+
+
+
+  //  arma::Mat<float> Anew = armaConvd(A);
+  //  cv::SVD svdMat(A);
+  cv::Mat W, U, Vt;
+  cv::SVD::compute(A, W, U, Vt)	;
+
+  std::cout<<"Vt on the SVD of A (before RANSAC on correspoinding points (Last column of Vt)) "<<Vt;
+
+  // Fundemental Matrix  computation using ransac
+  //https://docs.opencv.org/2.4/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html?#findhomography
+  cv::Mat fundamental_matrix = get_fundemental_matrix_after_ransac(mappings);
+  std::cout<<"Fundemental Matrix after RANSAC on correspoinding points "<<fundamental_matrix<<"\n";
+  
+
   
   
 
