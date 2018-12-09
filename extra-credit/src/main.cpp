@@ -78,22 +78,13 @@ int main(){
    *   Calculation of the fundemental Matrix
    *   Construct the matrix 
    *
-   *  http://answers.opencv.org/question/20574/please-give-me-an-example-code-for-finding-svd-of-an-image-in-c-or-c-using-opencv/
-   *
-   *  
    *
    */
   std::cout<<mappings.size();
 
   cv::Mat A = constructPointsMatrix(mappings);
-
-
-
-  //  arma::Mat<float> Anew = armaConvd(A);
-  //  cv::SVD svdMat(A);
   cv::Mat W, U, Vt;
   cv::SVD::compute(A, W, U, Vt)	;
-
   std::cout<<"Vt on the SVD of A (before RANSAC on correspoinding points (Last column of Vt)) "<<Vt;
 
   // Fundemental Matrix  computation using ransac
@@ -102,28 +93,12 @@ int main(){
   std::cout<<"Fundemental Matrix after RANSAC on correspoinding points "<<fundamental_matrix<<"\n";
   
 
+  /**
+   *  Dense Disparity Map
+   *  https://sourishghosh.com/2016/dense-disparity-maps-orb-descriptors/
+   *
+   *  https://github.com/sourishg/disparity-map/blob/master/epipolar.cpp
+   */
   
-  
-
-  
-  // /**
-  //  * (a-iv) Estimate robust homography
-  //  */
-  // vector<h_inliers> RansacRes = estimateHomographyAndFindInliers(mappings);
-  // Eigen::MatrixXd h = estimateRobustHomogrphy(mappings, RansacRes);
-  // testHomography(mappings, threshold, h);
-
-
-  // /**
-  //  * (a-v) Warp images together
-  //  */
-  // Mat result = warpImages(im1, im2, RansacRes, h);
-
-  // // Display warped images as final result
-  // namedWindow( "Warped Images", WINDOW_AUTOSIZE );
-  // imshow("Warped Images", result);
-  // waitKey(0);
-  // // Save correspondence image
-  // imwrite("./stitch3.png", result);
 
 }
