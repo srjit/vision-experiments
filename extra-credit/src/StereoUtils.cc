@@ -7,7 +7,7 @@
 using namespace cv;
 
 
-void getMaxCorrespondenceFromLine(int rightX,
+std::vector<int> getMaxCorrespondenceFromLine(int rightX,
 				  int rightY,
 				  std::vector<std::vector<int>> leftPoints,
 				  cv::Mat leftImage,
@@ -18,6 +18,9 @@ void getMaxCorrespondenceFromLine(int rightX,
 
       cv::Rect patchRegion(x, y, 21, 21);
       cv::Mat rightPatch  = rightImage(patchRegion);
+      cv::Mat rightPatchNorm = normalize(rightPatch);
+
+      std::vector<float> correlations;
 
       for(int pointIndex=0; pointIndex <= leftPoints.size(); pointIndex++){
 
@@ -28,15 +31,24 @@ void getMaxCorrespondenceFromLine(int rightX,
 	int yPatchLeftBegin = leftImgYTmp - 9 + 20;
 	
 
-	cv::Rect patchRegion(xPatchLeftBegin, yPatchLeftBegin, 21, 21);	
+	cv::Rect patchRegion(xPatchLeftBegin, yPatchLeftBegin, 21, 21);
+	cv::Mat leftPatch = leftImage(patchRegion);
+	cv::Mat leftPatchNorm = normalize(leftPatch);
+	  
+	cv::Scalar _correlation = cv::sum(rightPatchNorm.mul(leftPatchNorm));
+	float correlation = _correlation[0];
+	correlations.push_back(correlation);
 	
       }
-      
-      
-  
+
+      int maxIndex = std::distance(correlations.begin(),
+				   std::max_element(correlations.begin(),
+						    correlations.end()));
+
+      return leftPoints[maxIndex];
 }
 
-void getCorrespondingPoint(int x,
+std::vector<int> getCorrespondingPoint(int x,
 			   int y,
 			   int height,
 			   int width,
@@ -84,10 +96,11 @@ void getCorrespondingPoint(int x,
   }
 
 
-  getMaxCorrespondenceFromLine(x, y, points, leftImage, rightImage);
+  std::vector<int> correspondingPoint =
+    getMaxCorrespondenceFromLine(x, y, points, leftImage, rightImage);
   
   
-  
+  return correspondingPoint;
 }
 
 
@@ -99,7 +112,8 @@ void getDisparityMap(cv::Mat leftImage,
   *  For every pixel in the right image, find the pixel in the left image
   *
   */
-  cv::Mat disparityMap;
+  cv::Mat disparityMapX;
+  cv::Mat disparityMapY;
 
   int width = rightImage.cols;
   int height = rightImage.rows;
@@ -107,15 +121,20 @@ void getDisparityMap(cv::Mat leftImage,
   for(int i=0; i<height; i++){
     for(int j=0; j<width; j++){
 
-      getCorrespondingPoint(i,
-			    j,
-			    height,
-			    width,
-			    fundamentalMatrix,
-			    leftImage,
-			    rightImage);
-      
-      
+      vector<int> point = getCorrespondingPoint(i,
+						j,
+						height,
+						width,
+						fundamentalMatrix,
+						leftImage,
+						rightImage);
+
+
+      int leftX = height;
+      int leftY = width;
+
+      int rightX = point[0];
+      int rightY = point[1];
     }
   }
   
