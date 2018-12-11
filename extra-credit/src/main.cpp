@@ -4,6 +4,7 @@
 #include "Visualization.cc"
 #include "Utils.cc"
 #include "Epilines.cc"
+#include "StereoUtils.cc"
 
 #include <algorithm>
 #include <random>
@@ -29,10 +30,14 @@ int main(){
   std::vector<std::string> image_filenames = get_files("./data/");
   std::sort(image_filenames.begin(), image_filenames.end());
 
+  // for(int i=0;i<image_filenames.size();i++){
+  //   std::cout<<image_filenames[i]<<"\t";
+  // }
+  // std::cout<<"\n";
+
   /**
    * (a-i) Reading and Scaling
    */
-
   std::vector<cv::Mat> color_images = get_color_images(image_filenames, 1 , 1);
   std::vector<cv::Mat> gray_images = convertAllToGrayscale(color_images);
   std::vector<cv::Mat> padded_images = addPadding(gray_images);
@@ -70,7 +75,9 @@ int main(){
   }
 
 
+  // castle left
   Mat im1 = gray_images[0];
+  // castle right
   Mat im2 = gray_images[1];
   imageCorrespondences(im1, im2, mappings, corners);
 
@@ -79,19 +86,29 @@ int main(){
    *   Calculation of the fundemental Matrix
    *   Construct the matrix 
    *
-   *
    */
 
   cv::Mat A = constructPointsMatrix(mappings);
   cv::Mat W, U, Vt;
   cv::SVD::compute(A, W, U, Vt)	;
-  //std::cout<<"Vt on the SVD of A (before RANSAC on correspoinding points (Last column of Vt)) "<<Vt;
-
-  // Fundemental Matrix  computation using ransac
-  //https://docs.opencv.org/2.4/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html?#findhomography
   cv::Mat fundementalMatrix = get_fundemental_matrix_after_ransac(mappings);
   std::cout<<"Fundemental Matrix after RANSAC on correspoinding points \n "
 	   <<fundementalMatrix<<"\n";
+
+
+
+  // find the epipolar lines for each pixel
+
+  getDisparityMap(im1, im2, fundementalMatrix);
+
+
+  // for every pixel in image 1, find the location in the second image
+  
+  
+  
+
+  
+
   
 
   /**
@@ -115,20 +132,31 @@ int main(){
   int indexOfImage = 2;
   cv::Mat epipolarLines;
 
-  computeCorrespondEpilines(points1, 2, fundementalMatrix, epipolarLines);
+  //computeCorrespondEpilines(points2, indexOfImage, fundementalMatrix, epipolarLines);
 
-  //  cv::Matx33f m((float*)fundementalMatrix.ptr());
+  std::cout<<"\n\n";
+  std::cout<<epipolarLines;
+  std::cout<<"\n\n";
 
 
-  // drawing epipolar lines
-  cv::Mat H1;
-  cv::Mat H2;
+  // plot the epipolar lines
+  
 
-  cv::Size imgSize(im1.cols, im1.rows);
-  stereoRectifyUncalibrated(points1, points2, fundementalMatrix, imgSize, H1, H2);
+  
 
-  std::cout<<"\n";
-  std::cout<<H1;
+  // //  cv::Matx33f m((float*)fundementalMatrix.ptr());
+
+
+  // // drawing epipolar lines
+  // cv::Mat H1;
+  // cv::Mat H2;
+
+  // cv::Size imgSize(im1.cols, im1.rows);
+  // stereoRectifyUncalibrated(points1, points2, fundementalMatrix, imgSize, H1, H2);
+
+  // // TODO- http://answers.opencv.org/question/90742/opencv-depth-map-from-uncalibrated-stereo-system/
+  // std::cout<<"\n";
+  // std::cout<<fundementalMatrix;
   std::cout<<"\n";
 
   // http://www.hasper.info/opencv-draw-epipolar-lines/
