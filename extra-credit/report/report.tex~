@@ -1,0 +1,71 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{spverbatim}
+\usepackage{minted}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{amsmath}
+
+\usepackage{minted}
+\usepackage{titling}
+\newcommand{\subtitle}[1]{%
+  \posttitle{%
+    \par\end{center}
+    \begin{center}\LARGE#1\end{center}
+    \vskip0.5em}%
+}
+
+\usepackage{tabularx} % extra features for tabular environment
+\usepackage{amsmath}  % improve math presentation
+\usepackage{graphicx} % takes care of graphic including machinery
+\usepackage[margin=1in,letterpaper]{geometry} % decreases margins
+\usepackage{cite} % takes care of citations
+\usepackage[final]{hyperref} % adds hyper links inside the generated
+% pdf file
+\usepackage{subcaption}
+\usepackage{placeins}
+%% \usepackage{placeins}
+
+%% \hypersetup{
+%% 	colorlinks=true,       % false: boxed links; true: colored links
+%% 	linkcolor=blue,        % color of internal links
+%% 	citecolor=blue,        % color of links to bibliography
+%% 	filecolor=magenta,     % color of file links
+%% 	urlcolor=blue
+%% }
+%++++++++++++++++++++++++++++++++++++++++
+
+\title{\textbf{EECE 5639, Extra Credit Project:
+\\{\Large Stereo}}}
+\author{Sreejith Sreekumar}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+ \end{abstract}
+
+
+\section{Description of Algorithms}
+In this section we list and describe all of the algorithms implemented in the completion of this
+project.
+
+\subsection{Corner Detection}
+Harris Corner Detector is a corner detection operator that is commonly used in computer vision algorithms to extract corners and infer features of an image. This algorithm takes the differential of the corner score into account with reference to direction directly. The main equations in corner detection are given by:
+
+\subsection{Fundemental Matrix}
+
+\subsection{3D Reconstruction}
+
+\section{Experiments}
+
+
+\section{Conclusion}
+
+
+\section{Appendix}
+
+\end{document}

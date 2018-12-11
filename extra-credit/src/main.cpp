@@ -121,10 +121,14 @@ int main(){
 
 
   // drawing epipolar lines
-  
+  cv::Mat H1;
+  cv::Mat H2;
+
+  cv::Size imgSize(im1.cols, im1.rows);
+  stereoRectifyUncalibrated(points1, points2, fundementalMatrix, imgSize, H1, H2);
 
   std::cout<<"\n";
-  std::cout<<epipolarLines;
+  std::cout<<H1;
   std::cout<<"\n";
 
   // http://www.hasper.info/opencv-draw-epipolar-lines/
