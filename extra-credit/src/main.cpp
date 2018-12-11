@@ -3,6 +3,7 @@
 #include "Corners.cc"
 #include "Visualization.cc"
 #include "Utils.cc"
+#include "Epilines.cc"
 
 #include <algorithm>
 #include <random>
@@ -80,17 +81,17 @@ int main(){
    *
    *
    */
-  std::cout<<mappings.size();
 
   cv::Mat A = constructPointsMatrix(mappings);
   cv::Mat W, U, Vt;
   cv::SVD::compute(A, W, U, Vt)	;
-  std::cout<<"Vt on the SVD of A (before RANSAC on correspoinding points (Last column of Vt)) "<<Vt;
+  //std::cout<<"Vt on the SVD of A (before RANSAC on correspoinding points (Last column of Vt)) "<<Vt;
 
   // Fundemental Matrix  computation using ransac
   //https://docs.opencv.org/2.4/modules/calib3d/doc/camera_calibration_and_3d_reconstruction.html?#findhomography
-  cv::Mat fundamental_matrix = get_fundemental_matrix_after_ransac(mappings);
-  std::cout<<"Fundemental Matrix after RANSAC on correspoinding points "<<fundamental_matrix<<"\n";
+  cv::Mat fundementalMatrix = get_fundemental_matrix_after_ransac(mappings);
+  std::cout<<"Fundemental Matrix after RANSAC on correspoinding points \n "
+	   <<fundementalMatrix<<"\n";
   
 
   /**
@@ -99,6 +100,36 @@ int main(){
    *
    *  https://github.com/sourishg/disparity-map/blob/master/epipolar.cpp
    */
+
+  /**
+   *  Find the pixels along a line
+   *
+   *   For each pixel in first image
+   *      - Find the epipolar line in the right image
+   *      - Examine the epipolar line to determine the best match
+   *      - Triangulate the matches to get depth information
+   */
+
+  std::vector<cv::Point> points1  = getCorrespondancePointsFromImage(mappings, 1);
+  std::vector<cv::Point> points2  = getCorrespondancePointsFromImage(mappings, 2);
+  int indexOfImage = 2;
+  cv::Mat epipolarLines;
+
+  computeCorrespondEpilines(points1, 2, fundementalMatrix, epipolarLines);
+
+  //  cv::Matx33f m((float*)fundementalMatrix.ptr());
+
+
+  // drawing epipolar lines
+  
+
+  std::cout<<"\n";
+  std::cout<<epipolarLines;
+  std::cout<<"\n";
+
+  // http://www.hasper.info/opencv-draw-epipolar-lines/
+  // drawEpipolarLines("Test", fundementalMatrix, im1, im2, points1, points2);
+  
   
 
 }

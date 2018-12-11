@@ -53,6 +53,37 @@ cv::Mat constructPointsMatrix(std::vector<PatchPair> mappings){
 }
 
 
+std::vector<cv::Point> getCorrespondancePointsFromImage(std::vector<PatchPair> mappings,
+							   int imageIndex){
+
+  std::vector<cv::Point> points1;
+  cv::Point2f point;
+  
+  for(int i=0; i<mappings.size(); i++){
+
+      PatchPair pair = mappings[i];
+
+      int x, y;
+
+      if (imageIndex == 1){
+	x = pair.coordinate1[0];
+	y = pair.coordinate1[1];
+      } else{
+	x = pair.coordinate2[0];
+	y = pair.coordinate2[1];
+      }
+
+      cv::Point point(x, y);
+
+      points1.push_back(point);
+      
+ }
+
+  return points1;
+  
+}
+
+
 
 cv::Mat get_fundemental_matrix_after_ransac(std::vector<PatchPair> mappings){
 
