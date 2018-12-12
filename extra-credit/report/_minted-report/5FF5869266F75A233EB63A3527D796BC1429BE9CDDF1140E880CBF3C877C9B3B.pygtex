@@ -1,0 +1,142 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}stdio.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}opencv2/opencv.hpp\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}opencv2/imgproc/imgproc.hpp\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}dirent.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}string\PYGZgt{}}
+
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{cv}\PYG{p}{;}
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{o}{\PYGZgt{}} \PYG{n}{get\PYGZus{}files}\PYG{p}{(}\PYG{k}{const} \PYG{k+kt}{char}\PYG{o}{*} \PYG{n}{path}\PYG{p}{)\PYGZob{}}
+
+  \PYG{c+cm}{/**}
+\PYG{c+cm}{   *  Get all the image files from a path}
+\PYG{c+cm}{   */}
+
+  \PYG{k+kt}{DIR} \PYG{o}{*}\PYG{n}{dir}\PYG{p}{;}
+  \PYG{k}{struct} \PYG{n}{dirent} \PYG{o}{*}\PYG{n}{ent}\PYG{p}{;}
+
+  \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{o}{\PYGZgt{}} \PYG{n}{images}\PYG{p}{;}
+
+  \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{dirname} \PYG{o}{=} \PYG{n}{path}\PYG{p}{;}
+  \PYG{k}{if} \PYG{p}{((}\PYG{n}{dir} \PYG{o}{=} \PYG{n}{opendir} \PYG{p}{(}\PYG{n}{path}\PYG{p}{))} \PYG{o}{!=} \PYG{n+nb}{NULL}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+    \PYG{k}{while} \PYG{p}{((}\PYG{n}{ent} \PYG{o}{=} \PYG{n}{readdir} \PYG{p}{(}\PYG{n}{dir}\PYG{p}{))} \PYG{o}{!=} \PYG{n+nb}{NULL}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+      \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{file\PYGZus{}name} \PYG{o}{=} \PYG{n}{ent}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{d\PYGZus{}name}\PYG{p}{;}
+      \PYG{n}{std}\PYG{o}{::}\PYG{n}{string} \PYG{n}{full\PYGZus{}path} \PYG{o}{=} \PYG{n}{dirname} \PYG{o}{+} \PYG{l+s}{\PYGZdq{}/\PYGZdq{}} \PYG{o}{+} \PYG{n}{file\PYGZus{}name}\PYG{p}{;}
+
+      \PYG{n}{images}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{full\PYGZus{}path}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{n}{closedir} \PYG{p}{(}\PYG{n}{dir}\PYG{p}{);}
+  \PYG{p}{\PYGZcb{}} \PYG{k}{else} \PYG{p}{\PYGZob{}}
+    \PYG{n}{perror} \PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{p}{);}
+  \PYG{p}{\PYGZcb{}}
+  \PYG{k}{return} \PYG{n}{images}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{convertToGrayscale}\PYG{p}{(}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{color\PYGZus{}image}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+
+  \PYG{c+cm}{/**}
+\PYG{c+cm}{   * Convert image to grayscale}
+\PYG{c+cm}{   */}
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{greyMat}\PYG{p}{;}
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{cvtColor}\PYG{p}{(}\PYG{n}{color\PYGZus{}image}\PYG{p}{,} \PYG{n}{greyMat}\PYG{p}{,} \PYG{n}{cv}\PYG{o}{::}\PYG{n}{COLOR\PYGZus{}BGR2GRAY}\PYG{p}{);}
+    \PYG{k}{return} \PYG{n}{greyMat}\PYG{p}{;}
+
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat}\PYG{o}{\PYGZgt{}} \PYG{n}{convertAllToGrayscale}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat}\PYG{o}{\PYGZgt{}} \PYG{n}{color\PYGZus{}images}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+
+    \PYG{c+cm}{/**}
+\PYG{c+cm}{     * Convert images to grayscale}
+\PYG{c+cm}{     */}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat}\PYG{o}{\PYGZgt{}} \PYG{n}{gray\PYGZus{}images}\PYG{p}{;}
+    \PYG{k}{for} \PYG{p}{(}\PYG{k}{auto} \PYG{n}{image} \PYG{o}{=} \PYG{n}{color\PYGZus{}images}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{();} \PYG{n}{image} \PYG{o}{!=} \PYG{n}{color\PYGZus{}images}\PYG{p}{.}\PYG{n}{end}\PYG{p}{();} \PYG{o}{++}\PYG{n}{image}\PYG{p}{)\PYGZob{}}
+        \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{gray}\PYG{p}{;}
+        \PYG{n}{cv}\PYG{o}{::}\PYG{n}{cvtColor}\PYG{p}{(}\PYG{o}{*}\PYG{n}{image}\PYG{p}{,} \PYG{n}{gray}\PYG{p}{,} \PYG{n}{cv}\PYG{o}{::}\PYG{n}{COLOR\PYGZus{}BGR2GRAY}\PYG{p}{);}
+        \PYG{n}{gray}\PYG{p}{.}\PYG{n}{convertTo}\PYG{p}{(}\PYG{n}{gray}\PYG{p}{,} \PYG{n}{CV\PYGZus{}8U}\PYG{p}{);}
+        \PYG{c+c1}{//gray.convertTo(gray, CV\PYGZus{}32S);}
+        \PYG{n}{gray\PYGZus{}images}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{gray}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{return} \PYG{n}{gray\PYGZus{}images}\PYG{p}{;}
+
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat}\PYG{o}{\PYGZgt{}} \PYG{n}{addPadding}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat}\PYG{o}{\PYGZgt{}} \PYG{n}{gray\PYGZus{}images}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat}\PYG{o}{\PYGZgt{}} \PYG{n}{padded\PYGZus{}images}\PYG{p}{;}
+    \PYG{k}{for} \PYG{p}{(}\PYG{k}{auto} \PYG{n}{image} \PYG{o}{=} \PYG{n}{gray\PYGZus{}images}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{();} \PYG{n}{image} \PYG{o}{!=} \PYG{n}{gray\PYGZus{}images}\PYG{p}{.}\PYG{n}{end}\PYG{p}{();} \PYG{o}{++}\PYG{n}{image}\PYG{p}{)\PYGZob{}}
+      \PYG{n}{Mat} \PYG{n}{padded}\PYG{p}{;}
+      \PYG{k+kt}{int} \PYG{n}{pad} \PYG{o}{=} \PYG{l+m+mi}{20}\PYG{p}{;}
+      \PYG{n}{copyMakeBorder}\PYG{p}{(}\PYG{o}{*}\PYG{n}{image}\PYG{p}{,} \PYG{o}{*}\PYG{n}{image}\PYG{p}{,} \PYG{n}{pad}\PYG{p}{,} \PYG{n}{pad}\PYG{p}{,} \PYG{n}{pad}\PYG{p}{,} \PYG{n}{pad}\PYG{p}{,} \PYG{n}{BORDER\PYGZus{}CONSTANT}\PYG{p}{);}
+      \PYG{n}{padded\PYGZus{}images}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{o}{*}\PYG{n}{image}\PYG{p}{);}
+
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{return} \PYG{n}{padded\PYGZus{}images}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{c+c1}{// std::vector\PYGZlt{}cv::Mat\PYGZgt{} addPadding2(std::vector\PYGZlt{}cv::Mat\PYGZgt{} gray\PYGZus{}images) \PYGZob{}}
+
+\PYG{c+c1}{//     std::vector\PYGZlt{}cv::Mat\PYGZgt{} padded\PYGZus{}images;}
+\PYG{c+c1}{//     for (auto image = gray\PYGZus{}images.begin(); image != gray\PYGZus{}images.end(); ++image)\PYGZob{}}
+\PYG{c+c1}{//       Mat padded;}
+\PYG{c+c1}{//       int pad = 10;}
+\PYG{c+c1}{//       copyMakeBorder(*image, *image, pad, pad, pad, pad, BORDER\PYGZus{}CONSTANT);}
+\PYG{c+c1}{//       padded\PYGZus{}images.push\PYGZus{}back(*image);}
+
+\PYG{c+c1}{//     \PYGZcb{}}
+\PYG{c+c1}{//     return padded\PYGZus{}images;}
+\PYG{c+c1}{// \PYGZcb{}}
+
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat}\PYG{o}{\PYGZgt{}} \PYG{n}{get\PYGZus{}grayscale\PYGZus{}images}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{o}{\PYGZgt{}} \PYG{n}{filenames}\PYG{p}{)\PYGZob{}}
+
+  \PYG{c+cm}{/**}
+\PYG{c+cm}{   * Read the files as grayscale images and return}
+\PYG{c+cm}{   * a vector of grayscale matrices that represents them}
+\PYG{c+cm}{   *}
+\PYG{c+cm}{   */}
+  \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat}\PYG{o}{\PYGZgt{}} \PYG{n}{grayimages}\PYG{p}{;}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{image}\PYG{p}{;}
+
+  \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n}{file} \PYG{o}{=} \PYG{n}{filenames}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{();} \PYG{n}{file} \PYG{o}{!=} \PYG{n}{filenames}\PYG{p}{.}\PYG{n}{end}\PYG{p}{();} \PYG{o}{++}\PYG{n}{file}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+    \PYG{n}{image} \PYG{o}{=} \PYG{n}{imread}\PYG{p}{(}\PYG{o}{*}\PYG{n}{file}\PYG{p}{);}
+    \PYG{k}{if} \PYG{p}{(} \PYG{n}{image}\PYG{p}{.}\PYG{n}{empty}\PYG{p}{()} \PYG{p}{)\PYGZob{}}
+      \PYG{k}{continue}\PYG{p}{;}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{grayImage} \PYG{o}{=} \PYG{n}{convertToGrayscale}\PYG{p}{(}\PYG{n}{image}\PYG{p}{);}
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{convertedGrayImage}\PYG{p}{;}
+    \PYG{n}{grayImage}\PYG{p}{.}\PYG{n}{convertTo}\PYG{p}{(}\PYG{n}{convertedGrayImage}\PYG{p}{,} \PYG{n}{CV\PYGZus{}8U}\PYG{p}{);}
+    \PYG{n}{grayimages}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{convertedGrayImage}\PYG{p}{);}
+  \PYG{p}{\PYGZcb{}}
+
+  \PYG{k}{return} \PYG{n}{grayimages}\PYG{p}{;}
+
+\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat}\PYG{o}{\PYGZgt{}} \PYG{n}{get\PYGZus{}color\PYGZus{}images}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{o}{\PYGZgt{}} \PYG{n}{filenames}\PYG{p}{,}
+				      \PYG{k+kt}{int} \PYG{n}{scaleX}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{scaleY}\PYG{p}{)\PYGZob{}}
+
+  \PYG{c+cm}{/**}
+\PYG{c+cm}{   *Read RGB images and store in vector}
+\PYG{c+cm}{   *}
+\PYG{c+cm}{   */}
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat}\PYG{o}{\PYGZgt{}} \PYG{n}{colorimages}\PYG{p}{;}
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{image}\PYG{p}{;}
+
+    \PYG{k}{for}\PYG{p}{(}\PYG{k}{auto} \PYG{n}{file} \PYG{o}{=} \PYG{n}{filenames}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{();} \PYG{n}{file} \PYG{o}{!=} \PYG{n}{filenames}\PYG{p}{.}\PYG{n}{end}\PYG{p}{();} \PYG{o}{++}\PYG{n}{file}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{n}{image} \PYG{o}{=} \PYG{n}{imread}\PYG{p}{(}\PYG{o}{*}\PYG{n}{file}\PYG{p}{);}
+        \PYG{k}{if} \PYG{p}{(} \PYG{n}{image}\PYG{p}{.}\PYG{n}{empty}\PYG{p}{()} \PYG{p}{)\PYGZob{}}
+            \PYG{k}{continue}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+	\PYG{n}{cv}\PYG{o}{::}\PYG{n}{resize}\PYG{p}{(}\PYG{n}{image}\PYG{p}{,} \PYG{n}{image}\PYG{p}{,} \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Size}\PYG{p}{(),} \PYG{n}{scaleX}\PYG{p}{,} \PYG{n}{scaleY}\PYG{p}{);}
+        \PYG{n}{colorimages}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{image}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{k}{return} \PYG{n}{colorimages}\PYG{p}{;}
+
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

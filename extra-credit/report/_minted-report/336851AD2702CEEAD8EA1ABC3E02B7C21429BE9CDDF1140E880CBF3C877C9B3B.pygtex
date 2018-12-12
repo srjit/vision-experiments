@@ -1,0 +1,60 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{} include \PYGZlt{}opencv2/opencv.hpp\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}opencv2/highgui/highgui.hpp\PYGZdq{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZdq{}opencv2/imgproc/imgproc.hpp\PYGZdq{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}stdio.h\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}stdlib.h\PYGZgt{}}
+
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{cv}\PYG{p}{;}
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
+
+
+\PYG{k+kt}{void} \PYG{n+nf}{imageCorrespondences}\PYG{p}{(}\PYG{n}{Mat} \PYG{n}{im1}\PYG{p}{,}
+			  \PYG{n}{Mat} \PYG{n}{im2}\PYG{p}{,}
+			  \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{PatchPair}\PYG{o}{\PYGZgt{}} \PYG{n}{mappings}\PYG{p}{,}
+			  \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{tuple}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{p}{,} \PYG{k+kt}{int}\PYG{p}{,} \PYG{k+kt}{int}\PYG{o}{\PYGZgt{}\PYGZgt{}\PYGZgt{}} \PYG{n}{corners}\PYG{p}{)\PYGZob{}}
+
+  \PYG{c+c1}{// Test visualize correspondences}
+  \PYG{n}{Mat} \PYG{n}{combined}\PYG{p}{;}
+  \PYG{n}{Mat} \PYG{n}{foo}\PYG{p}{;}
+  \PYG{n}{hconcat}\PYG{p}{(}\PYG{n}{im1}\PYG{p}{,} \PYG{n}{im2}\PYG{p}{,} \PYG{n}{combined}\PYG{p}{);}
+  \PYG{n}{cvtColor}\PYG{p}{(}\PYG{n}{combined}\PYG{p}{,} \PYG{n}{foo}\PYG{p}{,} \PYG{n}{COLOR\PYGZus{}GRAY2BGR}\PYG{p}{);}
+
+
+  \PYG{c+c1}{// Draw Lines}
+  \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{t} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{t}\PYG{o}{\PYGZlt{}}\PYG{n}{mappings}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{o}{++}\PYG{n}{t}\PYG{p}{)\PYGZob{}}
+    \PYG{k+kt}{int} \PYG{n}{r1} \PYG{o}{=} \PYG{n}{mappings}\PYG{p}{[}\PYG{n}{t}\PYG{p}{].}\PYG{n}{coordinate1}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+    \PYG{k+kt}{int} \PYG{n}{c1} \PYG{o}{=} \PYG{n}{mappings}\PYG{p}{[}\PYG{n}{t}\PYG{p}{].}\PYG{n}{coordinate1}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
+    \PYG{k+kt}{int} \PYG{n}{r2} \PYG{o}{=} \PYG{n}{mappings}\PYG{p}{[}\PYG{n}{t}\PYG{p}{].}\PYG{n}{coordinate2}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+    \PYG{k+kt}{int} \PYG{n}{c2} \PYG{o}{=} \PYG{n}{mappings}\PYG{p}{[}\PYG{n}{t}\PYG{p}{].}\PYG{n}{coordinate2}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
+
+    \PYG{k+kt}{int} \PYG{n}{r} \PYG{o}{=} \PYG{l+m+mi}{0} \PYG{o}{+} \PYG{p}{(} \PYG{n}{std}\PYG{o}{::}\PYG{n}{rand}\PYG{p}{()} \PYG{o}{\PYGZpc{}} \PYG{p}{(} \PYG{l+m+mi}{255} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{0} \PYG{o}{+} \PYG{l+m+mi}{1} \PYG{p}{)} \PYG{p}{);}
+    \PYG{k+kt}{int} \PYG{n}{g} \PYG{o}{=} \PYG{l+m+mi}{0} \PYG{o}{+} \PYG{p}{(} \PYG{n}{std}\PYG{o}{::}\PYG{n}{rand}\PYG{p}{()} \PYG{o}{\PYGZpc{}} \PYG{p}{(} \PYG{l+m+mi}{255} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{0} \PYG{o}{+} \PYG{l+m+mi}{1} \PYG{p}{)} \PYG{p}{);}
+    \PYG{k+kt}{int} \PYG{n}{b} \PYG{o}{=} \PYG{l+m+mi}{0} \PYG{o}{+} \PYG{p}{(} \PYG{n}{std}\PYG{o}{::}\PYG{n}{rand}\PYG{p}{()} \PYG{o}{\PYGZpc{}} \PYG{p}{(} \PYG{l+m+mi}{255} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{0} \PYG{o}{+} \PYG{l+m+mi}{1} \PYG{p}{)} \PYG{p}{);}
+
+
+    \PYG{n}{line}\PYG{p}{(}\PYG{n}{foo}\PYG{p}{,} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{c1}\PYG{p}{,} \PYG{n}{r1}\PYG{p}{),} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{c2}\PYG{o}{+}\PYG{n}{im1}\PYG{p}{.}\PYG{n}{cols}\PYG{p}{,} \PYG{n}{r2}\PYG{p}{),} \PYG{n}{CV\PYGZus{}RGB}\PYG{p}{(}\PYG{n}{r}\PYG{p}{,} \PYG{n}{g}\PYG{p}{,} \PYG{n}{b}\PYG{p}{),} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{8}\PYG{p}{);}
+  \PYG{p}{\PYGZcb{}}
+
+  \PYG{c+c1}{// Draw Corners on Image 1}
+  \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{t} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{t} \PYG{o}{\PYGZlt{}} \PYG{n}{corners}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{].}\PYG{n}{size}\PYG{p}{();} \PYG{o}{++}\PYG{n}{t}\PYG{p}{)\PYGZob{}}
+    \PYG{k+kt}{int} \PYG{n}{r} \PYG{o}{=} \PYG{n}{get}\PYG{o}{\PYGZlt{}}\PYG{l+m+mi}{1}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{corners}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{][}\PYG{n}{t}\PYG{p}{]);}
+    \PYG{k+kt}{int} \PYG{n}{c} \PYG{o}{=} \PYG{n}{get}\PYG{o}{\PYGZlt{}}\PYG{l+m+mi}{2}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{corners}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{][}\PYG{n}{t}\PYG{p}{]);}
+    \PYG{n}{circle}\PYG{p}{(}\PYG{n}{foo}\PYG{p}{,} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{c}\PYG{p}{,}\PYG{n}{r}\PYG{p}{),} \PYG{l+m+mf}{4.0}\PYG{p}{,} \PYG{n}{Scalar}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{),} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{8}\PYG{p}{);}
+  \PYG{p}{\PYGZcb{}}
+
+  \PYG{c+c1}{// Draw Corners on Image 2}
+  \PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{t} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{t} \PYG{o}{\PYGZlt{}} \PYG{n}{corners}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{].}\PYG{n}{size}\PYG{p}{();} \PYG{o}{++}\PYG{n}{t}\PYG{p}{)\PYGZob{}}
+    \PYG{k+kt}{int} \PYG{n}{r} \PYG{o}{=} \PYG{n}{get}\PYG{o}{\PYGZlt{}}\PYG{l+m+mi}{1}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{corners}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{t}\PYG{p}{]);}
+    \PYG{k+kt}{int} \PYG{n}{c} \PYG{o}{=} \PYG{n}{get}\PYG{o}{\PYGZlt{}}\PYG{l+m+mi}{2}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{corners}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{t}\PYG{p}{])} \PYG{o}{+} \PYG{n}{im1}\PYG{p}{.}\PYG{n}{cols}\PYG{p}{;}
+    \PYG{n}{circle}\PYG{p}{(}\PYG{n}{foo}\PYG{p}{,} \PYG{n}{Point}\PYG{p}{(}\PYG{n}{c}\PYG{p}{,}\PYG{n}{r}\PYG{p}{),} \PYG{l+m+mf}{4.0}\PYG{p}{,} \PYG{n}{Scalar}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{),} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{8}\PYG{p}{);}
+  \PYG{p}{\PYGZcb{}}
+
+  \PYG{c+c1}{// Display test frame}
+  \PYG{n}{namedWindow}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}Sample Lines\PYGZdq{}}\PYG{p}{,} \PYG{n}{WINDOW\PYGZus{}AUTOSIZE} \PYG{p}{);}
+  \PYG{n}{Mat} \PYG{n}{sampleLines} \PYG{o}{=} \PYG{n}{foo}\PYG{p}{;}
+  \PYG{n}{imshow}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Sample Lines\PYGZdq{}}\PYG{p}{,} \PYG{n}{foo}\PYG{p}{);}
+  \PYG{n}{waitKey}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{);}
+
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

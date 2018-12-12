@@ -1,0 +1,91 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}opencv2/core/core.hpp\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}opencv2/highgui/highgui.hpp\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}opencv2/calib3d/calib3d.hpp\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}opencv2/imgproc/imgproc.hpp\PYGZgt{}}
+\PYG{c+cm}{/**}
+\PYG{c+cm}{ * \PYGZbs{}brief Compute and draw the epipolar lines in two images}
+\PYG{c+cm}{ *      associated to each other by a fundamental matrix}
+\PYG{c+cm}{ *}
+\PYG{c+cm}{ * \PYGZbs{}param title     Title of the window to display}
+\PYG{c+cm}{ * \PYGZbs{}param F         Fundamental matrix}
+\PYG{c+cm}{ * \PYGZbs{}param img1      First image}
+\PYG{c+cm}{ * \PYGZbs{}param img2      Second image}
+\PYG{c+cm}{ * \PYGZbs{}param points1   Set of points in the first image}
+\PYG{c+cm}{ * \PYGZbs{}param points2   Set of points in the second image matching to the first set}
+\PYG{c+cm}{ * \PYGZbs{}param inlierDistance      Points with a high distance to the epipolar lines are}
+\PYG{c+cm}{ *                not displayed. If it is negative, all points are displayed}
+\PYG{c+cm}{ **/}
+\PYG{k}{template} \PYG{o}{\PYGZlt{}}\PYG{k}{typename} \PYG{n}{T1}\PYG{p}{,} \PYG{k}{typename} \PYG{n}{T2}\PYG{o}{\PYGZgt{}}
+\PYG{k}{static} \PYG{k+kt}{void} \PYG{n}{drawEpipolarLines}\PYG{p}{(}\PYG{k}{const} \PYG{n}{std}\PYG{o}{::}\PYG{n}{string}\PYG{o}{\PYGZam{}} \PYG{n}{title}\PYG{p}{,} \PYG{k}{const} \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Matx}\PYG{o}{\PYGZlt{}}\PYG{n}{T1}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{o}{\PYGZgt{}} \PYG{n}{F}\PYG{p}{,}
+                \PYG{k}{const} \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat}\PYG{o}{\PYGZam{}} \PYG{n}{img1}\PYG{p}{,} \PYG{k}{const} \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat}\PYG{o}{\PYGZam{}} \PYG{n}{img2}\PYG{p}{,}
+                \PYG{k}{const} \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point\PYGZus{}}\PYG{o}{\PYGZlt{}}\PYG{n}{T2}\PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{points1}\PYG{p}{,}
+                \PYG{k}{const} \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point\PYGZus{}}\PYG{o}{\PYGZlt{}}\PYG{n}{T2}\PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{points2}\PYG{p}{,}
+                \PYG{k}{const} \PYG{k+kt}{float} \PYG{n}{inlierDistance} \PYG{o}{=} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+  \PYG{n}{CV\PYGZus{}Assert}\PYG{p}{(}\PYG{n}{img1}\PYG{p}{.}\PYG{n}{size}\PYG{p}{()} \PYG{o}{==} \PYG{n}{img2}\PYG{p}{.}\PYG{n}{size}\PYG{p}{()} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{img1}\PYG{p}{.}\PYG{n}{type}\PYG{p}{()} \PYG{o}{==} \PYG{n}{img2}\PYG{p}{.}\PYG{n}{type}\PYG{p}{());}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{outImg}\PYG{p}{(}\PYG{n}{img1}\PYG{p}{.}\PYG{n}{rows}\PYG{p}{,} \PYG{n}{img1}\PYG{p}{.}\PYG{n}{cols}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{CV\PYGZus{}8UC3}\PYG{p}{);}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Rect} \PYG{n}{rect1}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{img1}\PYG{p}{.}\PYG{n}{cols}\PYG{p}{,} \PYG{n}{img1}\PYG{p}{.}\PYG{n}{rows}\PYG{p}{);}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Rect} \PYG{n}{rect2}\PYG{p}{(}\PYG{n}{img1}\PYG{p}{.}\PYG{n}{cols}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{img1}\PYG{p}{.}\PYG{n}{cols}\PYG{p}{,} \PYG{n}{img1}\PYG{p}{.}\PYG{n}{rows}\PYG{p}{);}
+  \PYG{c+cm}{/*}
+\PYG{c+cm}{   * Allow color drawing}
+\PYG{c+cm}{   */}
+  \PYG{k}{if} \PYG{p}{(}\PYG{n}{img1}\PYG{p}{.}\PYG{n}{type}\PYG{p}{()} \PYG{o}{==} \PYG{n}{CV\PYGZus{}8U}\PYG{p}{)}
+  \PYG{p}{\PYGZob{}}
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{cvtColor}\PYG{p}{(}\PYG{n}{img1}\PYG{p}{,} \PYG{n}{outImg}\PYG{p}{(}\PYG{n}{rect1}\PYG{p}{),} \PYG{n}{COLOR\PYGZus{}GRAY2BGR}\PYG{p}{);}
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{cvtColor}\PYG{p}{(}\PYG{n}{img2}\PYG{p}{,} \PYG{n}{outImg}\PYG{p}{(}\PYG{n}{rect2}\PYG{p}{),} \PYG{n}{COLOR\PYGZus{}GRAY2BGR}\PYG{p}{);}
+  \PYG{p}{\PYGZcb{}}
+  \PYG{k}{else}
+  \PYG{p}{\PYGZob{}}
+    \PYG{n}{img1}\PYG{p}{.}\PYG{n}{copyTo}\PYG{p}{(}\PYG{n}{outImg}\PYG{p}{(}\PYG{n}{rect1}\PYG{p}{));}
+    \PYG{n}{img2}\PYG{p}{.}\PYG{n}{copyTo}\PYG{p}{(}\PYG{n}{outImg}\PYG{p}{(}\PYG{n}{rect2}\PYG{p}{));}
+  \PYG{p}{\PYGZcb{}}
+  \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Vec}\PYG{o}{\PYGZlt{}}\PYG{n}{T2}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{epilines1}\PYG{p}{,} \PYG{n}{epilines2}\PYG{p}{;}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{computeCorrespondEpilines}\PYG{p}{(}\PYG{n}{points1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{F}\PYG{p}{,} \PYG{n}{epilines1}\PYG{p}{);} \PYG{c+c1}{//Index starts with 1}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{computeCorrespondEpilines}\PYG{p}{(}\PYG{n}{points2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{F}\PYG{p}{,} \PYG{n}{epilines2}\PYG{p}{);}
+
+  \PYG{n}{CV\PYGZus{}Assert}\PYG{p}{(}\PYG{n}{points1}\PYG{p}{.}\PYG{n}{size}\PYG{p}{()} \PYG{o}{==} \PYG{n}{points2}\PYG{p}{.}\PYG{n}{size}\PYG{p}{()} \PYG{o}{\PYGZam{}\PYGZam{}}
+        \PYG{n}{points2}\PYG{p}{.}\PYG{n}{size}\PYG{p}{()} \PYG{o}{==} \PYG{n}{epilines1}\PYG{p}{.}\PYG{n}{size}\PYG{p}{()} \PYG{o}{\PYGZam{}\PYGZam{}}
+        \PYG{n}{epilines1}\PYG{p}{.}\PYG{n}{size}\PYG{p}{()} \PYG{o}{==} \PYG{n}{epilines2}\PYG{p}{.}\PYG{n}{size}\PYG{p}{());}
+
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{RNG} \PYG{n}{rng}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{);}
+  \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{size\PYGZus{}t} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{points1}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)}
+  \PYG{p}{\PYGZob{}}
+    \PYG{k}{if}\PYG{p}{(}\PYG{n}{inlierDistance} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{)}
+    \PYG{p}{\PYGZob{}}
+      \PYG{k}{if}\PYG{p}{(}\PYG{n}{distancePointLine}\PYG{p}{(}\PYG{n}{points1}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{epilines2}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{n}{inlierDistance} \PYG{o}{||}
+        \PYG{n}{distancePointLine}\PYG{p}{(}\PYG{n}{points2}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{epilines1}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])} \PYG{o}{\PYGZgt{}} \PYG{n}{inlierDistance}\PYG{p}{)}
+      \PYG{p}{\PYGZob{}}
+        \PYG{c+c1}{//The point match is no inlier}
+        \PYG{k}{continue}\PYG{p}{;}
+      \PYG{p}{\PYGZcb{}}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{c+cm}{/*}
+\PYG{c+cm}{     * Epipolar lines of the 1st point set are drawn in the 2nd image and vice\PYGZhy{}versa}
+\PYG{c+cm}{     */}
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Scalar} \PYG{n}{color}\PYG{p}{(}\PYG{n}{rng}\PYG{p}{(}\PYG{l+m+mi}{256}\PYG{p}{),}\PYG{n}{rng}\PYG{p}{(}\PYG{l+m+mi}{256}\PYG{p}{),}\PYG{n}{rng}\PYG{p}{(}\PYG{l+m+mi}{256}\PYG{p}{));}
+
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{line}\PYG{p}{(}\PYG{n}{outImg}\PYG{p}{(}\PYG{n}{rect2}\PYG{p}{),}
+      \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{o}{\PYGZhy{}}\PYG{n}{epilines1}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{o}{/}\PYG{n}{epilines1}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{1}\PYG{p}{]),}
+      \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point}\PYG{p}{(}\PYG{n}{img1}\PYG{p}{.}\PYG{n}{cols}\PYG{p}{,}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{n}{epilines1}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{o}{+}\PYG{n}{epilines1}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{*}\PYG{n}{img1}\PYG{p}{.}\PYG{n}{cols}\PYG{p}{)}\PYG{o}{/}\PYG{n}{epilines1}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{1}\PYG{p}{]),}
+      \PYG{n}{color}\PYG{p}{);}
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{circle}\PYG{p}{(}\PYG{n}{outImg}\PYG{p}{(}\PYG{n}{rect1}\PYG{p}{),} \PYG{n}{points1}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{color}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{LINE\PYGZus{}AA}\PYG{p}{);}
+
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{line}\PYG{p}{(}\PYG{n}{outImg}\PYG{p}{(}\PYG{n}{rect1}\PYG{p}{),}
+      \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{o}{\PYGZhy{}}\PYG{n}{epilines2}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{o}{/}\PYG{n}{epilines2}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{1}\PYG{p}{]),}
+      \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point}\PYG{p}{(}\PYG{n}{img2}\PYG{p}{.}\PYG{n}{cols}\PYG{p}{,}\PYG{o}{\PYGZhy{}}\PYG{p}{(}\PYG{n}{epilines2}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{2}\PYG{p}{]}\PYG{o}{+}\PYG{n}{epilines2}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{*}\PYG{n}{img2}\PYG{p}{.}\PYG{n}{cols}\PYG{p}{)}\PYG{o}{/}\PYG{n}{epilines2}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{1}\PYG{p}{]),}
+      \PYG{n}{color}\PYG{p}{);}
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{circle}\PYG{p}{(}\PYG{n}{outImg}\PYG{p}{(}\PYG{n}{rect2}\PYG{p}{),} \PYG{n}{points2}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{color}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{LINE\PYGZus{}AA}\PYG{p}{);}
+  \PYG{p}{\PYGZcb{}}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{imshow}\PYG{p}{(}\PYG{n}{title}\PYG{p}{,} \PYG{n}{outImg}\PYG{p}{);}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{waitKey}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{);}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k}{template} \PYG{o}{\PYGZlt{}}\PYG{k}{typename} \PYG{n}{T}\PYG{o}{\PYGZgt{}}
+\PYG{k}{static} \PYG{k+kt}{float} \PYG{n}{distancePointLine}\PYG{p}{(}\PYG{k}{const} \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point\PYGZus{}}\PYG{o}{\PYGZlt{}}\PYG{n}{T}\PYG{o}{\PYGZgt{}} \PYG{n}{point}\PYG{p}{,} \PYG{k}{const} \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Vec}\PYG{o}{\PYGZlt{}}\PYG{n}{T}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{o}{\PYGZgt{}\PYGZam{}} \PYG{n}{line}\PYG{p}{)}
+\PYG{p}{\PYGZob{}}
+  \PYG{c+c1}{//Line is given as a*x + b*y + c = 0}
+  \PYG{k}{return} \PYG{n}{fabsf}\PYG{p}{(}\PYG{n}{line}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{o}{*}\PYG{n}{point}\PYG{p}{.}\PYG{n}{x} \PYG{o}{+} \PYG{n}{line}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{*}\PYG{n}{point}\PYG{p}{.}\PYG{n}{y} \PYG{o}{+} \PYG{n}{line}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{))}
+      \PYG{o}{/} \PYG{n}{std}\PYG{o}{::}\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{line}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{o}{*}\PYG{n}{line}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{o}{+}\PYG{n}{line}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{*}\PYG{n}{line}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{));}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

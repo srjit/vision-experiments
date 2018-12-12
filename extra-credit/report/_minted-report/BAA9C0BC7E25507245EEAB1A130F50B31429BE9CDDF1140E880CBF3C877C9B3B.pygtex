@@ -1,0 +1,119 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iostream\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}opencv2/opencv.hpp\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}opencv2/highgui.hpp\PYGZgt{}}
+
+\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{constructPointsMatrix}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{PatchPair}\PYG{o}{\PYGZgt{}} \PYG{n}{mappings}\PYG{p}{)\PYGZob{}}
+
+
+  \PYG{c+cm}{/**}
+\PYG{c+cm}{   *  Constrcut the m * 9 matrix A}
+\PYG{c+cm}{   *}
+\PYG{c+cm}{   */}
+  \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{\PYGZus{}A}\PYG{p}{;}
+
+  \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{mappings}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+
+
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}} \PYG{n}{row}\PYG{p}{;}
+
+    \PYG{n}{PatchPair} \PYG{n}{pair} \PYG{o}{=} \PYG{n}{mappings}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
+
+    \PYG{k+kt}{int} \PYG{n}{x1} \PYG{o}{=} \PYG{n}{pair}\PYG{p}{.}\PYG{n}{coordinate1}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+    \PYG{k+kt}{int} \PYG{n}{y1} \PYG{o}{=} \PYG{n}{pair}\PYG{p}{.}\PYG{n}{coordinate1}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
+
+    \PYG{k+kt}{int} \PYG{n}{x1\PYGZus{}prime} \PYG{o}{=} \PYG{n}{pair}\PYG{p}{.}\PYG{n}{coordinate2}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+    \PYG{k+kt}{int} \PYG{n}{y1\PYGZus{}prime} \PYG{o}{=} \PYG{n}{pair}\PYG{p}{.}\PYG{n}{coordinate2}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
+
+    \PYG{n}{row}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{x1} \PYG{o}{*} \PYG{n}{x1\PYGZus{}prime}\PYG{p}{);}
+    \PYG{n}{row}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{x1} \PYG{o}{*} \PYG{n}{y1\PYGZus{}prime}\PYG{p}{);}
+    \PYG{n}{row}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{x1}\PYG{p}{);}
+    \PYG{n}{row}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{y1} \PYG{o}{*} \PYG{n}{x1\PYGZus{}prime}\PYG{p}{);}
+    \PYG{n}{row}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{y1} \PYG{o}{*} \PYG{n}{y1\PYGZus{}prime}\PYG{p}{);}
+    \PYG{n}{row}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{y1}\PYG{p}{);}
+    \PYG{n}{row}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{x1\PYGZus{}prime}\PYG{p}{);}
+    \PYG{n}{row}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{y1\PYGZus{}prime}\PYG{p}{);}
+    \PYG{n}{row}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{);}
+
+    \PYG{n}{\PYGZus{}A}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{row}\PYG{p}{);}
+  \PYG{p}{\PYGZcb{}}
+
+
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{A}\PYG{p}{(}\PYG{n}{\PYGZus{}A}\PYG{p}{.}\PYG{n}{size}\PYG{p}{(),} \PYG{n}{\PYGZus{}A}\PYG{p}{.}\PYG{n}{at}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{).}\PYG{n}{size}\PYG{p}{(),} \PYG{n}{CV\PYGZus{}32FC1}\PYG{p}{);}
+
+  \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}} \PYG{n}{A}\PYG{p}{.}\PYG{n}{rows}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+    \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{j}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{j}\PYG{o}{\PYGZlt{}} \PYG{n}{A}\PYG{p}{.}\PYG{n}{cols}\PYG{p}{;} \PYG{n}{j}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+       \PYG{n}{A}\PYG{p}{.}\PYG{n}{at}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,} \PYG{n}{j}\PYG{p}{)} \PYG{o}{=} \PYG{n}{\PYGZus{}A}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{j}\PYG{p}{];}
+    \PYG{p}{\PYGZcb{}}
+  \PYG{p}{\PYGZcb{}}
+
+
+  \PYG{k}{return} \PYG{n}{A}\PYG{p}{;}
+
+
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point}\PYG{o}{\PYGZgt{}} \PYG{n}{getCorrespondancePointsFromImage}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{PatchPair}\PYG{o}{\PYGZgt{}} \PYG{n}{mappings}\PYG{p}{,}
+							   \PYG{k+kt}{int} \PYG{n}{imageIndex}\PYG{p}{)\PYGZob{}}
+
+  \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point}\PYG{o}{\PYGZgt{}} \PYG{n}{points1}\PYG{p}{;}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point2f} \PYG{n}{point}\PYG{p}{;}
+
+  \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{mappings}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+
+      \PYG{n}{PatchPair} \PYG{n}{pair} \PYG{o}{=} \PYG{n}{mappings}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
+
+      \PYG{k+kt}{int} \PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{;}
+
+      \PYG{k}{if} \PYG{p}{(}\PYG{n}{imageIndex} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{)\PYGZob{}}
+	\PYG{n}{x} \PYG{o}{=} \PYG{n}{pair}\PYG{p}{.}\PYG{n}{coordinate1}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+	\PYG{n}{y} \PYG{o}{=} \PYG{n}{pair}\PYG{p}{.}\PYG{n}{coordinate1}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
+      \PYG{p}{\PYGZcb{}} \PYG{k}{else}\PYG{p}{\PYGZob{}}
+	\PYG{n}{x} \PYG{o}{=} \PYG{n}{pair}\PYG{p}{.}\PYG{n}{coordinate2}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+	\PYG{n}{y} \PYG{o}{=} \PYG{n}{pair}\PYG{p}{.}\PYG{n}{coordinate2}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
+      \PYG{p}{\PYGZcb{}}
+
+      \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point} \PYG{n}{point}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{);}
+
+      \PYG{n}{points1}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{point}\PYG{p}{);}
+
+ \PYG{p}{\PYGZcb{}}
+
+  \PYG{k}{return} \PYG{n}{points1}\PYG{p}{;}
+
+\PYG{p}{\PYGZcb{}}
+
+
+
+\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{get\PYGZus{}fundemental\PYGZus{}matrix\PYGZus{}after\PYGZus{}ransac}\PYG{p}{(}\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{PatchPair}\PYG{o}{\PYGZgt{}} \PYG{n}{mappings}\PYG{p}{)\PYGZob{}}
+
+  \PYG{k+kt}{int} \PYG{n}{point\PYGZus{}count} \PYG{o}{=} \PYG{n}{mappings}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();}
+
+  \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Point2f}\PYG{o}{\PYGZgt{}} \PYG{n}{points1}\PYG{p}{(}\PYG{n}{point\PYGZus{}count}\PYG{p}{);}
+  \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{Point2f}\PYG{o}{\PYGZgt{}} \PYG{n}{points2}\PYG{p}{(}\PYG{n}{point\PYGZus{}count}\PYG{p}{);}
+
+  \PYG{k}{for}\PYG{p}{(} \PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n}{point\PYGZus{}count}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++} \PYG{p}{)\PYGZob{}}
+
+    \PYG{n}{PatchPair} \PYG{n}{pair} \PYG{o}{=} \PYG{n}{mappings}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
+
+    \PYG{k+kt}{int} \PYG{n}{x1} \PYG{o}{=} \PYG{n}{pair}\PYG{p}{.}\PYG{n}{coordinate1}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+    \PYG{k+kt}{int} \PYG{n}{y1} \PYG{o}{=} \PYG{n}{pair}\PYG{p}{.}\PYG{n}{coordinate1}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
+
+    \PYG{k+kt}{int} \PYG{n}{x1\PYGZus{}prime} \PYG{o}{=} \PYG{n}{pair}\PYG{p}{.}\PYG{n}{coordinate2}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+    \PYG{k+kt}{int} \PYG{n}{y1\PYGZus{}prime} \PYG{o}{=} \PYG{n}{pair}\PYG{p}{.}\PYG{n}{coordinate2}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
+
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point2f} \PYG{n}{pt1}\PYG{p}{(}\PYG{n}{x1}\PYG{p}{,} \PYG{n}{y1}\PYG{p}{);}
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Point2f} \PYG{n}{pt2}\PYG{p}{(}\PYG{n}{x1\PYGZus{}prime}\PYG{p}{,} \PYG{n}{y1\PYGZus{}prime}\PYG{p}{);}
+
+    \PYG{n}{points1}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{pt1}\PYG{p}{);}
+    \PYG{n}{points2}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{pt2}\PYG{p}{);}
+
+  \PYG{p}{\PYGZcb{}}
+
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{fundamental\PYGZus{}matrix} \PYG{o}{=} \PYG{n}{findFundamentalMat}\PYG{p}{(}\PYG{n}{points1}\PYG{p}{,} \PYG{n}{points2}\PYG{p}{,} \PYG{n}{FM\PYGZus{}RANSAC}\PYG{p}{);}
+  \PYG{k}{return} \PYG{n}{fundamental\PYGZus{}matrix}\PYG{p}{;}
+
+
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

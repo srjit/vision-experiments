@@ -1,0 +1,199 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}iostream\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}cmath\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}opencv2/opencv.hpp\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}opencv2/highgui.hpp\PYGZgt{}}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}opencv2/imgproc/imgproc.hpp\PYGZgt{}}
+
+
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{cv}\PYG{p}{;}
+
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{getMaxCorrespondenceFromLine}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{rightX}\PYG{p}{,}
+					      \PYG{k+kt}{int} \PYG{n}{rightY}\PYG{p}{,}
+					      \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{leftPoints}\PYG{p}{,}
+					      \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{leftImage}\PYG{p}{,}
+					      \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{rightImage}\PYG{p}{)\PYGZob{}}
+
+  \PYG{k+kt}{int} \PYG{n}{x} \PYG{o}{=} \PYG{n}{rightX} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{9} \PYG{o}{+} \PYG{l+m+mi}{20}\PYG{p}{;}
+  \PYG{k+kt}{int} \PYG{n}{y} \PYG{o}{=} \PYG{n}{rightY} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{9} \PYG{o}{+} \PYG{l+m+mi}{20}\PYG{p}{;}
+
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Rect} \PYG{n}{patchRegion}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{);}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{rightPatch}  \PYG{o}{=} \PYG{n}{rightImage}\PYG{p}{(}\PYG{n}{patchRegion}\PYG{p}{);}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{rightPatchNorm} \PYG{o}{=} \PYG{n}{normalize}\PYG{p}{(}\PYG{n}{rightPatch}\PYG{p}{);}
+
+  \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}} \PYG{n}{correlations}\PYG{p}{;}
+
+  \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{pointIndex}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{pointIndex} \PYG{o}{\PYGZlt{}} \PYG{n}{leftPoints}\PYG{p}{.}\PYG{n}{size}\PYG{p}{();} \PYG{n}{pointIndex}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+
+    \PYG{k+kt}{int} \PYG{n}{leftImgXTmp} \PYG{o}{=} \PYG{n}{leftPoints}\PYG{p}{[}\PYG{n}{pointIndex}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{];}
+    \PYG{k+kt}{int} \PYG{n}{leftImgYTmp} \PYG{o}{=} \PYG{n}{leftPoints}\PYG{p}{[}\PYG{n}{pointIndex}\PYG{p}{][}\PYG{l+m+mi}{1}\PYG{p}{];}
+
+    \PYG{k+kt}{int} \PYG{n}{xPatchLeftBegin} \PYG{o}{=} \PYG{n}{leftImgXTmp} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{9} \PYG{o}{+} \PYG{l+m+mi}{20}\PYG{p}{;}
+    \PYG{k+kt}{int} \PYG{n}{yPatchLeftBegin} \PYG{o}{=} \PYG{n}{leftImgYTmp} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{9} \PYG{o}{+} \PYG{l+m+mi}{20}\PYG{p}{;}
+
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Rect} \PYG{n}{patchRegion}\PYG{p}{(}\PYG{n}{xPatchLeftBegin}\PYG{p}{,} \PYG{n}{yPatchLeftBegin}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{);}
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{leftPatch} \PYG{o}{=} \PYG{n}{leftImage}\PYG{p}{(}\PYG{n}{patchRegion}\PYG{p}{);}
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{leftPatchNorm} \PYG{o}{=} \PYG{n}{normalize}\PYG{p}{(}\PYG{n}{leftPatch}\PYG{p}{);}
+
+    \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Scalar} \PYG{n}{\PYGZus{}correlation} \PYG{o}{=} \PYG{n}{cv}\PYG{o}{::}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{rightPatchNorm}\PYG{p}{.}\PYG{n}{mul}\PYG{p}{(}\PYG{n}{leftPatchNorm}\PYG{p}{));}
+    \PYG{k+kt}{float} \PYG{n}{correlation} \PYG{o}{=} \PYG{n}{\PYGZus{}correlation}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+    \PYG{n}{correlations}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{correlation}\PYG{p}{);}
+
+   \PYG{p}{\PYGZcb{}}
+
+  \PYG{k+kt}{int} \PYG{n}{maxIndex} \PYG{o}{=} \PYG{n}{std}\PYG{o}{::}\PYG{n}{distance}\PYG{p}{(}\PYG{n}{correlations}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(),}
+  			       \PYG{n}{std}\PYG{o}{::}\PYG{n}{max\PYGZus{}element}\PYG{p}{(}\PYG{n}{correlations}\PYG{p}{.}\PYG{n}{begin}\PYG{p}{(),}
+  						\PYG{n}{correlations}\PYG{p}{.}\PYG{n}{end}\PYG{p}{()));}
+
+  \PYG{k}{return} \PYG{n}{leftPoints}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{getCorrespondingPoint}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{x\PYGZus{}right}\PYG{p}{,}
+				       \PYG{k+kt}{int} \PYG{n}{y\PYGZus{}right}\PYG{p}{,}
+				       \PYG{k+kt}{int} \PYG{n}{height}\PYG{p}{,}
+				       \PYG{k+kt}{int} \PYG{n}{width}\PYG{p}{,}
+				       \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{fundamentalMatrix}\PYG{p}{,}
+				       \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{leftImage}\PYG{p}{,}
+				       \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{rightImage}\PYG{p}{)\PYGZob{}}
+
+  \PYG{k+kt}{float} \PYG{n}{f11} \PYG{o}{=} \PYG{n}{fundamentalMatrix}\PYG{p}{.}\PYG{n}{at}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{));}
+  \PYG{k+kt}{float} \PYG{n}{f12} \PYG{o}{=} \PYG{n}{fundamentalMatrix}\PYG{p}{.}\PYG{n}{at}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{));}
+  \PYG{k+kt}{float} \PYG{n}{f13} \PYG{o}{=} \PYG{n}{fundamentalMatrix}\PYG{p}{.}\PYG{n}{at}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{));}
+
+  \PYG{k+kt}{float} \PYG{n}{f21} \PYG{o}{=} \PYG{n}{fundamentalMatrix}\PYG{p}{.}\PYG{n}{at}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{));}
+  \PYG{k+kt}{float} \PYG{n}{f22} \PYG{o}{=} \PYG{n}{fundamentalMatrix}\PYG{p}{.}\PYG{n}{at}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{));}
+  \PYG{k+kt}{float} \PYG{n}{f23} \PYG{o}{=} \PYG{n}{fundamentalMatrix}\PYG{p}{.}\PYG{n}{at}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{));}
+
+  \PYG{k+kt}{float} \PYG{n}{f31} \PYG{o}{=} \PYG{n}{fundamentalMatrix}\PYG{p}{.}\PYG{n}{at}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{));}
+  \PYG{k+kt}{float} \PYG{n}{f32} \PYG{o}{=} \PYG{n}{fundamentalMatrix}\PYG{p}{.}\PYG{n}{at}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{));}
+  \PYG{k+kt}{float} \PYG{n}{f33} \PYG{o}{=} \PYG{n}{fundamentalMatrix}\PYG{p}{.}\PYG{n}{at}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{Point}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{));}
+
+  \PYG{c+cm}{/**}
+\PYG{c+cm}{   * Co\PYGZhy{}efficients of the line}
+\PYG{c+cm}{   */}
+  \PYG{k+kt}{double} \PYG{n}{a} \PYG{o}{=} \PYG{p}{(}\PYG{n}{f11} \PYG{o}{*} \PYG{n}{x\PYGZus{}right}\PYG{p}{)} \PYG{o}{+} \PYG{p}{(}\PYG{n}{f12} \PYG{o}{*} \PYG{n}{y\PYGZus{}right}\PYG{p}{)} \PYG{o}{+} \PYG{n}{f13}\PYG{p}{;}
+  \PYG{k+kt}{double} \PYG{n}{b} \PYG{o}{=} \PYG{p}{(}\PYG{n}{f21} \PYG{o}{*} \PYG{n}{x\PYGZus{}right}\PYG{p}{)} \PYG{o}{+} \PYG{p}{(}\PYG{n}{f22} \PYG{o}{*} \PYG{n}{y\PYGZus{}right}\PYG{p}{)} \PYG{o}{+} \PYG{n}{f23}\PYG{p}{;}
+  \PYG{k+kt}{double} \PYG{n}{c} \PYG{o}{=} \PYG{p}{(}\PYG{n}{f31} \PYG{o}{*} \PYG{n}{x\PYGZus{}right}\PYG{p}{)} \PYG{o}{+} \PYG{p}{(}\PYG{n}{f32} \PYG{o}{*} \PYG{n}{y\PYGZus{}right}\PYG{p}{)} \PYG{o}{+} \PYG{n}{f33}\PYG{p}{;}
+
+  \PYG{c+cm}{/**}
+\PYG{c+cm}{   * get two points on this line}
+\PYG{c+cm}{   */}
+  \PYG{k+kt}{double} \PYG{n}{x\PYGZus{}min} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+
+  \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{points}\PYG{p}{;}
+
+  \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{colIndex}\PYG{o}{=}\PYG{l+m+mi}{20}\PYG{p}{;} \PYG{n}{colIndex}\PYG{o}{\PYGZlt{}}\PYG{n}{width}\PYG{p}{;} \PYG{n}{colIndex}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+
+    \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{co\PYGZus{}ordinates}\PYG{p}{;}
+
+    \PYG{k+kt}{int} \PYG{n}{rowIndex} \PYG{o}{=} \PYG{n}{floor}\PYG{p}{((}\PYG{o}{\PYGZhy{}}\PYG{n}{c} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{a} \PYG{o}{*} \PYG{n}{colIndex}\PYG{p}{))}\PYG{o}{/}\PYG{n}{b}\PYG{p}{);}
+
+    \PYG{k}{if}\PYG{p}{((}\PYG{n}{rowIndex} \PYG{o}{\PYGZgt{}=}\PYG{l+m+mi}{20}\PYG{p}{)}  \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{p}{(}\PYG{n}{rowIndex} \PYG{o}{\PYGZlt{}} \PYG{n}{height} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{20}\PYG{p}{))\PYGZob{}}
+      \PYG{n}{co\PYGZus{}ordinates}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{colIndex}\PYG{p}{);}
+      \PYG{n}{co\PYGZus{}ordinates}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{rowIndex}\PYG{p}{);}
+
+      \PYG{n}{points}\PYG{p}{.}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{co\PYGZus{}ordinates}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+
+  \PYG{p}{\PYGZcb{}}
+
+  \PYG{n}{std}\PYG{o}{::}\PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{correspondingPoint}\PYG{p}{;}
+
+
+  \PYG{k}{if}\PYG{p}{(}\PYG{n}{points}\PYG{p}{.}\PYG{n}{size}\PYG{p}{()}\PYG{o}{\PYGZgt{}}\PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
+    \PYG{n}{correspondingPoint} \PYG{o}{=}
+      \PYG{n}{getMaxCorrespondenceFromLine}\PYG{p}{(}\PYG{n}{x\PYGZus{}right}\PYG{p}{,} \PYG{n}{y\PYGZus{}right}\PYG{p}{,} \PYG{n}{points}\PYG{p}{,} \PYG{n}{leftImage}\PYG{p}{,} \PYG{n}{rightImage}\PYG{p}{);}
+  \PYG{p}{\PYGZcb{}}
+
+  \PYG{k}{return} \PYG{n}{correspondingPoint}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+
+\PYG{k+kt}{void} \PYG{n}{getDisparityMap}\PYG{p}{(}\PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{leftImage}\PYG{p}{,}
+		     \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{rightImage}\PYG{p}{,}
+		     \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{fundamentalMatrix}\PYG{p}{)\PYGZob{}}
+
+
+  \PYG{k+kt}{int} \PYG{n}{width} \PYG{o}{=} \PYG{n}{rightImage}\PYG{p}{.}\PYG{n}{cols}\PYG{p}{;}
+  \PYG{k+kt}{int} \PYG{n}{height} \PYG{o}{=} \PYG{n}{rightImage}\PYG{p}{.}\PYG{n}{rows}\PYG{p}{;}
+
+
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{dispX}\PYG{p}{(}\PYG{n}{width}\PYG{p}{,}\PYG{n}{height}\PYG{p}{,} \PYG{n}{CV\PYGZus{}8U}\PYG{p}{);}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{dispY}\PYG{p}{(}\PYG{n}{width}\PYG{p}{,}\PYG{n}{height}\PYG{p}{,} \PYG{n}{CV\PYGZus{}8U}\PYG{p}{);}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{dispVector}\PYG{p}{(}\PYG{n}{width}\PYG{p}{,}\PYG{n}{height}\PYG{p}{,} \PYG{n}{CV\PYGZus{}8U}\PYG{p}{);}
+
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{disparityMapX}\PYG{p}{(}\PYG{n}{height}\PYG{p}{,} \PYG{n}{width}\PYG{p}{,} \PYG{n}{CV\PYGZus{}32F}\PYG{p}{);}
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{Mat} \PYG{n}{disparityMapY}\PYG{p}{(}\PYG{n}{height}\PYG{p}{,} \PYG{n}{width}\PYG{p}{,} \PYG{n}{CV\PYGZus{}32F}\PYG{p}{);}
+
+  \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{i}\PYG{o}{\PYGZlt{}}\PYG{n}{height}\PYG{p}{;} \PYG{n}{i}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+    \PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{j}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{j}\PYG{o}{\PYGZlt{}}\PYG{n}{width}\PYG{p}{;} \PYG{n}{j}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+
+      \PYG{n}{vector}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{point} \PYG{o}{=} \PYG{n}{getCorrespondingPoint}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}
+      						\PYG{n}{j}\PYG{p}{,}
+      						\PYG{n}{height}\PYG{p}{,}
+      						\PYG{n}{width}\PYG{p}{,}
+      						\PYG{n}{fundamentalMatrix}\PYG{p}{,}
+      						\PYG{n}{leftImage}\PYG{p}{,}
+      						\PYG{n}{rightImage}\PYG{p}{);}
+      \PYG{k+kt}{int} \PYG{n}{leftX} \PYG{o}{=} \PYG{n}{i}\PYG{p}{;}
+      \PYG{k+kt}{int} \PYG{n}{leftY} \PYG{o}{=} \PYG{n}{j}\PYG{p}{;}
+
+      \PYG{k+kt}{int} \PYG{n}{rightX} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+      \PYG{k+kt}{int} \PYG{n}{rightY} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+
+      \PYG{k}{if}\PYG{p}{(}\PYG{n}{point}\PYG{p}{.}\PYG{n}{size}\PYG{p}{()}\PYG{o}{\PYGZgt{}}\PYG{l+m+mi}{0}\PYG{p}{)\PYGZob{}}
+
+      	\PYG{n}{rightX} \PYG{o}{=} \PYG{n}{point}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{];}
+      	\PYG{n}{rightY} \PYG{o}{=} \PYG{n}{point}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
+
+      \PYG{p}{\PYGZcb{}}
+
+      \PYG{k+kt}{int} \PYG{n}{disparityX} \PYG{o}{=} \PYG{n}{abs}\PYG{p}{(}\PYG{n}{rightX} \PYG{o}{\PYGZhy{}} \PYG{n}{leftX}\PYG{p}{);}
+      \PYG{k+kt}{int} \PYG{n}{disparityY} \PYG{o}{=} \PYG{n}{abs}\PYG{p}{(}\PYG{n}{rightY} \PYG{o}{\PYGZhy{}} \PYG{n}{leftY}\PYG{p}{);}
+
+      \PYG{n}{disparityMapX}\PYG{p}{.}\PYG{n}{at}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{)} \PYG{o}{=} \PYG{n}{disparityX}\PYG{p}{;}
+      \PYG{n}{disparityMapY}\PYG{p}{.}\PYG{n}{at}\PYG{o}{\PYGZlt{}}\PYG{k+kt}{float}\PYG{o}{\PYGZgt{}}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{)} \PYG{o}{=} \PYG{n}{disparityY}\PYG{p}{;}
+
+    \PYG{p}{\PYGZcb{}}
+
+  \PYG{p}{\PYGZcb{}}
+
+  \PYG{k+kt}{double} \PYG{n}{minValX}\PYG{p}{;}
+  \PYG{k+kt}{double} \PYG{n}{maxValX}\PYG{p}{;}
+  \PYG{n}{Point} \PYG{n}{minLocX}\PYG{p}{;}
+  \PYG{n}{Point} \PYG{n}{maxLocX}\PYG{p}{;}
+
+  \PYG{n}{minMaxLoc}\PYG{p}{(} \PYG{n}{disparityMapX}\PYG{p}{,} \PYG{o}{\PYGZam{}}\PYG{n}{minValX}\PYG{p}{,} \PYG{o}{\PYGZam{}}\PYG{n}{maxValX}\PYG{p}{,} \PYG{o}{\PYGZam{}}\PYG{n}{minLocX}\PYG{p}{,} \PYG{o}{\PYGZam{}}\PYG{n}{maxLocX}\PYG{p}{);}
+
+  \PYG{n}{disparityMapX} \PYG{o}{\PYGZhy{}=} \PYG{n}{minValX}\PYG{p}{;}
+  \PYG{n}{disparityMapX}\PYG{p}{.}\PYG{n}{convertTo}\PYG{p}{(}\PYG{n}{dispX}\PYG{p}{,}\PYG{n}{CV\PYGZus{}8U}\PYG{p}{,}\PYG{l+m+mf}{255.0}\PYG{o}{/}\PYG{p}{(}\PYG{n}{maxValX}\PYG{o}{\PYGZhy{}}\PYG{n}{minValX}\PYG{p}{));}
+
+  \PYG{n}{namedWindow}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}Disparity Horizontal\PYGZdq{}}\PYG{p}{,} \PYG{n}{WINDOW\PYGZus{}AUTOSIZE} \PYG{p}{);}
+  \PYG{n}{imshow}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Disparity Horizontal\PYGZdq{}}\PYG{p}{,} \PYG{n}{dispX}\PYG{p}{);}
+  \PYG{n}{waitKey}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{);}
+
+
+  \PYG{k+kt}{double} \PYG{n}{minValY}\PYG{p}{;}
+  \PYG{k+kt}{double} \PYG{n}{maxValY}\PYG{p}{;}
+  \PYG{n}{Point} \PYG{n}{minLocY}\PYG{p}{;}
+  \PYG{n}{Point} \PYG{n}{maxLocY}\PYG{p}{;}
+
+  \PYG{n}{minMaxLoc}\PYG{p}{(} \PYG{n}{disparityMapY}\PYG{p}{,} \PYG{o}{\PYGZam{}}\PYG{n}{minValY}\PYG{p}{,} \PYG{o}{\PYGZam{}}\PYG{n}{maxValY}\PYG{p}{,} \PYG{o}{\PYGZam{}}\PYG{n}{minLocY}\PYG{p}{,} \PYG{o}{\PYGZam{}}\PYG{n}{maxLocY}\PYG{p}{);}
+
+  \PYG{n}{disparityMapY} \PYG{o}{\PYGZhy{}=} \PYG{n}{minValY}\PYG{p}{;}
+  \PYG{n}{disparityMapY}\PYG{p}{.}\PYG{n}{convertTo}\PYG{p}{(}\PYG{n}{dispY}\PYG{p}{,}\PYG{n}{CV\PYGZus{}8U}\PYG{p}{,}\PYG{l+m+mf}{255.0}\PYG{o}{/}\PYG{p}{(}\PYG{n}{maxValY}\PYG{o}{\PYGZhy{}}\PYG{n}{minValY}\PYG{p}{));}
+
+
+  \PYG{n}{namedWindow}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}Disparity Vertical\PYGZdq{}}\PYG{p}{,} \PYG{n}{WINDOW\PYGZus{}AUTOSIZE} \PYG{p}{);}
+  \PYG{n}{imshow}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Disparity Vertical\PYGZdq{}}\PYG{p}{,} \PYG{n}{dispY}\PYG{p}{);}
+  \PYG{n}{waitKey}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{);}
+
+  \PYG{n}{cv}\PYG{o}{::}\PYG{n}{magnitude}\PYG{p}{(}\PYG{n}{dispX}\PYG{p}{,} \PYG{n}{dispY}\PYG{p}{,} \PYG{n}{dispVector}\PYG{p}{);}
+  \PYG{n}{namedWindow}\PYG{p}{(} \PYG{l+s}{\PYGZdq{}Disparity Vector\PYGZdq{}}\PYG{p}{,} \PYG{n}{WINDOW\PYGZus{}AUTOSIZE} \PYG{p}{);}
+  \PYG{n}{imshow}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Disparity Vector\PYGZdq{}}\PYG{p}{,} \PYG{n}{dispY}\PYG{p}{);}
+  \PYG{n}{waitKey}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{);}
+
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
