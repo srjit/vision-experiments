@@ -1,0 +1,83 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{function}\PYG{+w}{ }image \PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{get\PYGZus{}image\PYGZus{}with\PYGZus{}corners}\PYG{p}{()}
+\PYG{+w}{    }\PYG{n}{image} \PYG{p}{=} \PYG{n+nb}{zeros}\PYG{p}{(}\PYG{l+m+mi}{21}\PYG{p}{,}\PYG{l+m+mi}{20}\PYG{p}{);}
+    \PYG{k}{for} \PYG{n}{x} \PYG{p}{=} \PYG{l+m+mi}{11}\PYG{p}{:}\PYG{l+m+mi}{21}
+        \PYG{k}{for} \PYG{n}{y} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{l+m+mi}{10}
+            \PYG{n}{image}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)} \PYG{p}{=} \PYG{l+m+mi}{40}\PYG{p}{;}
+        \PYG{k}{end}
+    \PYG{k}{end}
+
+    \PYG{k}{for} \PYG{n}{x} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{l+m+mi}{10}
+        \PYG{k}{for} \PYG{n}{y} \PYG{p}{=} \PYG{l+m+mi}{11}\PYG{p}{:}\PYG{l+m+mi}{20}
+            \PYG{n}{image}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)} \PYG{p}{=} \PYG{l+m+mi}{40}\PYG{p}{;}
+        \PYG{k}{end}
+    \PYG{k}{end}
+\PYG{k}{end}
+
+\PYG{n}{img2} \PYG{p}{=} \PYG{n}{get\PYGZus{}image\PYGZus{}with\PYGZus{}corners}\PYG{p}{();}
+
+\PYG{c}{\PYGZpc{} Gradient in X \PYGZhy{} direction}
+\PYG{n}{maskx} \PYG{p}{=} \PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{;}\PYG{l+m+mi}{0} \PYG{l+m+mi}{0} \PYG{l+m+mi}{0}\PYG{p}{;}\PYG{l+m+mi}{1} \PYG{l+m+mi}{1} \PYG{l+m+mi}{1}\PYG{p}{];}
+\PYG{n}{Gx} \PYG{p}{=} \PYG{n}{conv2}\PYG{p}{(}\PYG{n}{img2}\PYG{p}{,} \PYG{n}{maskx}\PYG{p}{);}
+
+\PYG{c}{\PYGZpc{} Gradient in Y \PYGZhy{} direction}
+\PYG{n}{masky} \PYG{p}{=} \PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1} \PYG{l+m+mi}{0} \PYG{l+m+mi}{1}\PYG{p}{;}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1} \PYG{l+m+mi}{0} \PYG{l+m+mi}{1}\PYG{p}{;}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1} \PYG{l+m+mi}{0} \PYG{l+m+mi}{1}\PYG{p}{];}
+\PYG{n}{Gy} \PYG{p}{=} \PYG{n}{conv2}\PYG{p}{(}\PYG{n}{img2}\PYG{p}{,} \PYG{n}{masky}\PYG{p}{);}
+
+
+\PYG{n}{Ex2}  \PYG{p}{=} \PYG{n}{Gx}\PYG{o}{.*}\PYG{n}{Gx}\PYG{p}{;}
+\PYG{n}{Ey2}  \PYG{p}{=} \PYG{n}{Gy}\PYG{o}{.*}\PYG{n}{Gy}\PYG{p}{;}
+\PYG{n}{ExEy} \PYG{p}{=} \PYG{n}{Gx}\PYG{o}{.*}\PYG{n}{Gy}\PYG{p}{;}
+
+\PYG{c}{\PYGZpc{} Build the C Matrix from the Ex, Ey and ExEy matrices}
+
+\PYG{k}{function}\PYG{+w}{ }matrix \PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{CreateCMatrix}\PYG{p}{(}Ex2, Ey2, ExEy, i, j\PYG{p}{)}
+\PYG{+w}{    }\PYG{n}{matrix} \PYG{p}{=} \PYG{n+nb}{zeros}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{);}
+    \PYG{n}{matrix}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{p}{=} \PYG{n}{Ex2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ex2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ex2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{c}{...}
+        \PYG{o}{+} \PYG{n}{Ex2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,} \PYG{n+nb}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ex2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ex2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ex2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ex2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ex2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{);}
+    \PYG{n}{matrix}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)} \PYG{p}{=} \PYG{n}{ExEy}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{n}{ExEy}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{+} \PYG{n}{ExEy}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{c}{...}
+        \PYG{o}{+} \PYG{n}{ExEy}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,} \PYG{n+nb}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{n}{ExEy}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{+} \PYG{n}{ExEy}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{n}{ExEy}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{n}{ExEy}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{+} \PYG{n}{ExEy}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{);}
+    \PYG{n}{matrix}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{p}{=} \PYG{n}{matrix}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{);}
+    \PYG{n}{matrix}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{)} \PYG{p}{=} \PYG{n}{Ey2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ey2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ey2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{c}{...}
+        \PYG{o}{+} \PYG{n}{Ey2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,} \PYG{n+nb}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ey2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ey2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ey2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ey2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{+} \PYG{n}{Ey2}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{);}
+\PYG{k}{end}
+
+
+\PYG{n}{CMatrix} \PYG{p}{=} \PYG{n+nb}{zeros}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{21}\PYG{p}{,}\PYG{l+m+mi}{20}\PYG{p}{);}
+
+
+\PYG{c}{\PYGZpc{} Excluding borders while summing}
+\PYG{k}{for} \PYG{n+nb}{i}\PYG{p}{=}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+m+mi}{20}
+    \PYG{k}{for} \PYG{n+nb}{j}\PYG{p}{=}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+m+mi}{19}
+       \PYG{n}{CMatrix}\PYG{p}{(:,:,}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{p}{=} \PYG{n}{CreateCMatrix}\PYG{p}{(}\PYG{n}{Ex2}\PYG{p}{,} \PYG{n}{Ey2}\PYG{p}{,} \PYG{n}{ExEy}\PYG{p}{,} \PYG{n+nb}{i}\PYG{p}{,} \PYG{n+nb}{j}\PYG{p}{);}
+    \PYG{k}{end}
+\PYG{k}{end}
+
+
+\PYG{c}{\PYGZpc{} Finding those values for which CMatrix has Sum(Ex\PYGZca{}2) \PYGZgt{}\PYGZgt{} Threshold \PYGZam{}\PYGZam{}}
+\PYG{c}{\PYGZpc{} Sum(Ey\PYGZca{}2) \PYGZgt{}\PYGZgt{} Threshold  \PYGZam{}\PYGZam{} Sum(ExEy) =0 \PYGZam{}\PYGZam{} Sum(EyEx) = 0}
+\PYG{k}{for} \PYG{n+nb}{i}\PYG{p}{=}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{l+m+mi}{19}
+    \PYG{k}{for} \PYG{n+nb}{j}\PYG{p}{=}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{l+m+mi}{18}
+        \PYG{n}{CM} \PYG{p}{=} \PYG{n}{CMatrix}\PYG{p}{(:,:,}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{);}
+        \PYG{k}{if} \PYG{n}{CM}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0}  \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{CM}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{CM}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{10000} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{CM}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{)} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{10000}
+            \PYG{n}{fprintf}\PYG{p}{(}\PYGZdq{}\PYG{p}{(}\PYG{c}{\PYGZpc{}d,\PYGZpc{}d)\PYGZbs{}n\PYGZdq{}, i, j);}
+        \PYG{k}{end}
+    \PYG{k}{end}
+\PYG{k}{end}
+
+
+\PYG{c}{\PYGZpc{} Output}
+
+\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,}\PYG{l+m+mi}{11}\PYG{p}{)}
+\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,}\PYG{l+m+mi}{12}\PYG{p}{)}
+\PYG{p}{(}\PYG{l+m+mi}{11}\PYG{p}{,}\PYG{l+m+mi}{10}\PYG{p}{)}
+\PYG{p}{(}\PYG{l+m+mi}{11}\PYG{p}{,}\PYG{l+m+mi}{11}\PYG{p}{)}
+\PYG{p}{(}\PYG{l+m+mi}{11}\PYG{p}{,}\PYG{l+m+mi}{12}\PYG{p}{)}
+\PYG{p}{(}\PYG{l+m+mi}{11}\PYG{p}{,}\PYG{l+m+mi}{13}\PYG{p}{)}
+\PYG{p}{(}\PYG{l+m+mi}{12}\PYG{p}{,}\PYG{l+m+mi}{10}\PYG{p}{)}
+\PYG{p}{(}\PYG{l+m+mi}{12}\PYG{p}{,}\PYG{l+m+mi}{11}\PYG{p}{)}
+\PYG{p}{(}\PYG{l+m+mi}{12}\PYG{p}{,}\PYG{l+m+mi}{12}\PYG{p}{)}
+\PYG{p}{(}\PYG{l+m+mi}{12}\PYG{p}{,}\PYG{l+m+mi}{13}\PYG{p}{)}
+\PYG{p}{(}\PYG{l+m+mi}{13}\PYG{p}{,}\PYG{l+m+mi}{11}\PYG{p}{)}
+\PYG{p}{(}\PYG{l+m+mi}{13}\PYG{p}{,}\PYG{l+m+mi}{12}\PYG{p}{)}
+\end{Verbatim}

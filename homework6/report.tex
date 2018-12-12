@@ -46,8 +46,12 @@ $\begin{bmatrix}
     1\\
 \end{bmatrix}$ \\
 
+In stereo vision, which is the ability to infer information on the 3D structure and distance of a
+scene from two or more images taken from different viewpoints, we use Essential and Fundemental matrices to
+construct correspondence equations.
+
 The essential matrix is a 3 x 3 matrix that encodes the epipolar geomtry of two views. Given a point
-in an image, multiplying by the Essential Matrix, will tell us the EPIPOLAR line in the second image
+in an image, multiplying by the Essential Matrix, will tell us the epipolar line in the second image
 where the corresponding point must be.
 If $P_{l}$ and $P_{r}$ are two two points from the left and right cameras of the stereo, we have:
 \[
@@ -116,8 +120,26 @@ $\begin{bmatrix}
 \item Planar affine transformation preserves the parallel property of parallel lines.  
 \end{itemize}
 
-\section*{Question 4}
+\pagebreak
+\begin{figure}
+  \section*{Question 4}
+
+ \includegraphics[width=15cm]{1.jpg}
+\end{figure}
+
+\pagebreak
+
+\begin{figure}
+\includegraphics[width=15cm]{2.jpg}
+\end{figure}
+
+
+
+\textit{Note: Question 4 (scanned page) has been put below Question 5}
+
 \section*{Question 5}
+
+
 
 Normalizing the entries of the fundemental matrix: \\
 
@@ -196,6 +218,27 @@ Hence, the normalizing matrix is: \\
     0 &  0 & 1\\
 \end{bmatrix} 
 \]
+
+
+\begin{figure}
+\section*{Question 6}
+\includegraphics[width=15cm]{3.jpg}
+\end{figure}
+
+\begin{figure}
+\section*{Question 7}  
+\includegraphics[width=15cm]{4.jpg}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=15cm]{5.jpg}
+\end{figure}
+
+\begin{figure}
+\section*{Question 8}  
+\includegraphics[width=15cm]{6.jpg}
+\end{figure}
+
 
 \end{document}
 

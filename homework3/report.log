@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.23)  12 OCT 2018 00:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.9.23)  12 OCT 2018 18:35
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -454,29 +454,95 @@ A90.pygtex) [1
 \openout3 = `report.pyg'.
 
 
-(./_minted-report/8C647820C23344235F96C9729647040D3259859DF0A535B99E0F5A968F371
-A90.pygtex) [2] (./report.aux)
+(./_minted-report/DD070FFDE3E15C4FAC03A27869E8A5D63259859DF0A535B99E0F5A968F371
+A90.pygtex)
+<qn2.jpg, id=12, 605.8635pt x 1005.7575pt>
+File: qn2.jpg Graphic file (type jpg)
+<use qn2.jpg>
+Package pdftex.def Info: qn2.jpg  used on input line 101.
+(pdftex.def)             Requested size: 426.79134pt x 708.50667pt.
+
+
+LaTeX Warning: Float too large for page by 30.19296pt on input line 102.
+
+[2] [3 <./qn2.jpg>]
+\openout3 = `report.pyg'.
+
+
+(./_minted-report/D5FB3636B517E3F6C743442CFA131F373259859DF0A535B99E0F5A968F371
+A90.pygtex [4])
+<qn4.jpg, id=22, 608.2725pt x 1006.7211pt>
+File: qn4.jpg Graphic file (type jpg)
+<use qn4.jpg>
+Package pdftex.def Info: qn4.jpg  used on input line 197.
+(pdftex.def)             Requested size: 483.69684pt x 800.55453pt.
+
+
+LaTeX Warning: Float too large for page by 122.24083pt on input line 198.
+
+<qn5_1.jpg, id=23, 608.0316pt x 1005.2757pt>
+File: qn5_1.jpg Graphic file (type jpg)
+<use qn5_1.jpg>
+Package pdftex.def Info: qn5_1.jpg  used on input line 201.
+(pdftex.def)             Requested size: 426.79134pt x 705.65161pt.
+
+LaTeX Warning: Float too large for page by 27.3379pt on input line 202.
+
+<qn5_2.jpg, id=24, 606.1044pt x 1005.0348pt>
+File: qn5_2.jpg Graphic file (type jpg)
+<use qn5_2.jpg>
+Package pdftex.def Info: qn5_2.jpg  used on input line 205.
+(pdftex.def)             Requested size: 426.79134pt x 707.70618pt.
+
+LaTeX Warning: Float too large for page by 29.39247pt on input line 206.
+
+<qn6.jpg, id=25, 608.2725pt x 1005.0348pt>
+File: qn6.jpg Graphic file (type jpg)
+<use qn6.jpg>
+Package pdftex.def Info: qn6.jpg  used on input line 209.
+(pdftex.def)             Requested size: 426.79134pt x 705.19115pt.
+
+LaTeX Warning: Float too large for page by 26.87744pt on input line 210.
+
+<qn7_1.jpg, id=26, 605.1408pt x 1005.0348pt>
+File: qn7_1.jpg Graphic file (type jpg)
+<use qn7_1.jpg>
+Package pdftex.def Info: qn7_1.jpg  used on input line 213.
+(pdftex.def)             Requested size: 426.79134pt x 708.84102pt.
+
+LaTeX Warning: Float too large for page by 30.52731pt on input line 214.
+
+<qn7_2.jpg, id=27, 615.7404pt x 1005.7575pt>
+File: qn7_2.jpg Graphic file (type jpg)
+<use qn7_2.jpg>
+Package pdftex.def Info: qn7_2.jpg  used on input line 217.
+(pdftex.def)             Requested size: 426.79134pt x 697.13483pt.
+
+LaTeX Warning: Float too large for page by 18.82112pt on input line 218.
+
+[5] [6 <./qn4.jpg>] [7 <./qn5_1.jpg>] [8 <./qn5_2.jpg>] [9 <./qn6.jpg>]
+[10 <./qn7_1.jpg>] [11 <./qn7_2.jpg>] (./report.aux)
 runsystem(rm report.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
- 6361 strings out of 494847
- 104433 string characters out of 6179080
- 217338 words of memory out of 5000000
- 9548 multiletter control sequences out of 15000+600000
+ 6400 strings out of 494847
+ 105172 string characters out of 6179080
+ 221732 words of memory out of 5000000
+ 9576 multiletter control sequences out of 15000+600000
  12294 words of font info for 46 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 37i,6n,35p,841b,315s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,6n,35p,841b,341s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/sha
 re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on report.pdf (2 pages, 63749 bytes).
+Output written on report.pdf (11 pages, 8009985 bytes).
 PDF statistics:
- 35 PDF objects out of 1000 (max. 8388607)
- 24 compressed objects within 1 object stream
+ 71 PDF objects out of 1000 (max. 8388607)
+ 44 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

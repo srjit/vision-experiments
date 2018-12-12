@@ -76,18 +76,18 @@ std::vector<cv::Mat> addPadding(std::vector<cv::Mat> gray_images) {
 }
 
 
-std::vector<cv::Mat> addPadding2(std::vector<cv::Mat> gray_images) {
+// std::vector<cv::Mat> addPadding2(std::vector<cv::Mat> gray_images) {
 
-    std::vector<cv::Mat> padded_images;
-    for (auto image = gray_images.begin(); image != gray_images.end(); ++image){
-      Mat padded;
-      int pad = 10;
-      copyMakeBorder(*image, *image, pad, pad, pad, pad, BORDER_CONSTANT);
-      padded_images.push_back(*image);
+//     std::vector<cv::Mat> padded_images;
+//     for (auto image = gray_images.begin(); image != gray_images.end(); ++image){
+//       Mat padded;
+//       int pad = 10;
+//       copyMakeBorder(*image, *image, pad, pad, pad, pad, BORDER_CONSTANT);
+//       padded_images.push_back(*image);
 
-    }
-    return padded_images;
-}
+//     }
+//     return padded_images;
+// }
 
 
 std::vector<cv::Mat> get_grayscale_images(std::vector<std::string> filenames){

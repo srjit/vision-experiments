@@ -1,0 +1,48 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{normalized\PYGZus{}image} \PYG{p}{=} \PYG{n+nb}{zeros}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{,}\PYG{l+m+mi}{8}\PYG{p}{);}
+\PYG{n}{normalized\PYGZus{}template} \PYG{p}{=} \PYG{n+nb}{zeros}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{);}
+
+\PYG{c}{\PYGZpc{} normalizing the f matrix \PYGZhy{} f/||f||}
+\PYG{k}{for} \PYG{n+nb}{i}\PYG{p}{=}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+m+mi}{7}
+    \PYG{k}{for} \PYG{n+nb}{j}\PYG{p}{=}\PYG{l+m+mi}{2}\PYG{p}{:}\PYG{l+m+mi}{7}
+      \PYG{n}{denominator} \PYG{p}{=} \PYG{n}{f}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{.\PYGZca{}}\PYG{l+m+mi}{2} \PYG{o}{+} \PYG{c}{...}
+                  \PYG{o}{+} \PYG{n}{f}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{.\PYGZca{}}\PYG{l+m+mi}{2} \PYG{o}{+} \PYG{c}{...}
+                  \PYG{o}{+} \PYG{n}{f}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n+nb}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{.\PYGZca{}}\PYG{l+m+mi}{2} \PYG{o}{+} \PYG{c}{...}
+                  \PYG{o}{+} \PYG{n}{f}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,} \PYG{n+nb}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{.\PYGZca{}}\PYG{l+m+mi}{2} \PYG{c}{...}
+                  \PYG{o}{+} \PYG{n}{f}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{.\PYGZca{}}\PYG{l+m+mi}{2} \PYG{c}{...}
+                  \PYG{o}{+} \PYG{n}{f}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{.\PYGZca{}}\PYG{l+m+mi}{2} \PYG{c}{...}
+                  \PYG{o}{+} \PYG{n}{f}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb}{j}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{.\PYGZca{}}\PYG{l+m+mi}{2} \PYG{c}{...}
+                  \PYG{o}{+} \PYG{n}{f}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{.\PYGZca{}}\PYG{l+m+mi}{2} \PYG{c}{...}
+                  \PYG{o}{+} \PYG{n}{f}\PYG{p}{(}\PYG{n+nb}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n+nb}{j}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{.\PYGZca{}}\PYG{l+m+mi}{2}\PYG{p}{;}
+       \PYG{n}{denominator} \PYG{p}{=} \PYG{n+nb}{sqrt}\PYG{p}{(}\PYG{n}{denominator}\PYG{p}{);}
+       \PYG{k}{if} \PYG{n}{denominator} \PYG{o}{==} \PYG{l+m+mi}{0}
+        \PYG{n}{normalized\PYGZus{}image}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{p}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+       \PYG{k}{else}
+        \PYG{n}{normalized\PYGZus{}image}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{p}{=} \PYG{p}{(}\PYG{n}{f}\PYG{p}{(}\PYG{n+nb}{i}\PYG{p}{,}\PYG{n+nb}{j}\PYG{p}{)} \PYG{o}{/} \PYG{n}{denominator}\PYG{p}{);}
+       \PYG{k}{end}
+    \PYG{k}{end}
+\PYG{k}{end}
+
+\PYG{c}{\PYGZpc{} normalizing the g matrix \PYGZhy{} g/||g||}
+\PYG{n}{normalized\PYGZus{}template} \PYG{p}{=} \PYG{n}{g}\PYG{o}{./}\PYG{n+nb}{sqrt}\PYG{p}{(}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{sum}\PYG{p}{(}\PYG{n}{g}\PYG{o}{.\PYGZca{}}\PYG{l+m+mi}{2}\PYG{p}{)));}
+\PYG{n}{normalized\PYGZus{}cross\PYGZus{}correlation} \PYG{p}{=} \PYG{n}{imfilter}\PYG{p}{(}\PYG{n}{normalized\PYGZus{}image}\PYG{p}{,} \PYG{n}{normalized\PYGZus{}template}\PYG{p}{);}
+
+\PYG{n}{normalized\PYGZus{}cross\PYGZus{}correlation}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,:)} \PYG{p}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{n}{normalized\PYGZus{}cross\PYGZus{}correlation}\PYG{p}{(:,}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{p}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{n}{normalized\PYGZus{}cross\PYGZus{}correlation}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{,:)} \PYG{p}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{n}{normalized\PYGZus{}cross\PYGZus{}correlation}\PYG{p}{(:,}\PYG{l+m+mi}{8}\PYG{p}{)} \PYG{p}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{n+nb}{disp}\PYG{p}{(}\PYGZdq{}\PYG{n}{Normalized} \PYG{n}{Cross} \PYG{n}{Correlation}\PYGZdq{}\PYG{p}{);}
+\PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{normalized\PYGZus{}cross\PYGZus{}correlation}\PYG{p}{);}
+
+
+\PYG{n}{Normalized} \PYG{n}{Cross} \PYG{n}{Correlation}
+         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}
+         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{0.2887}    \PYG{l+m+mf}{0.2673}    \PYG{l+m+mf}{0.1581}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}
+         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{0.6682}    \PYG{l+m+mf}{0.8750}    \PYG{l+m+mf}{0.5774}    \PYG{l+m+mf}{0.3536}         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{0.3536}         \PYG{l+m+mi}{0}
+         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{0.5000}    \PYG{l+m+mf}{0.5000}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{0.5000}         \PYG{l+m+mi}{0}
+         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{0.4472}    \PYG{l+m+mf}{0.5893}    \PYG{l+m+mf}{0.3162}         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{0.2673}    \PYG{l+m+mf}{0.6250}         \PYG{l+m+mi}{0}
+         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{0.4009}    \PYG{l+m+mf}{0.1443}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{0.2887}    \PYG{l+m+mf}{0.5345}         \PYG{l+m+mi}{0}
+         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{1.0000}    \PYG{l+m+mf}{0.5345}    \PYG{l+m+mf}{0.3536}    \PYG{l+m+mf}{0.3536}    \PYG{l+m+mf}{0.6325}    \PYG{l+m+mf}{0.8660}         \PYG{l+m+mi}{0}
+         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}         \PYG{l+m+mi}{0}
+\end{Verbatim}

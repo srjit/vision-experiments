@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.17)  20 NOV 2018 15:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.10.17)  20 NOV 2018 19:03
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -448,98 +448,131 @@ Underfull \hbox (badness 10000) in paragraph at lines 31--48
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 70--74
+Underfull \hbox (badness 10000) in paragraph at lines 74--78
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
+Underfull \hbox (badness 10000) in paragraph at lines 83--84
 
  []
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 83.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 87.
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 83.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 87.
 
-Underfull \hbox (badness 10000) in paragraph at lines 83--96
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 97--98
+Underfull \hbox (badness 10000) in paragraph at lines 87--100
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 99--110
+Underfull \hbox (badness 10000) in paragraph at lines 101--102
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 103--114
 
  []
 
 [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 122--123
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
+<1.jpg, id=19, 609.7179pt x 791.3565pt>
+File: 1.jpg Graphic file (type jpg)
+<use 1.jpg>
+Package pdftex.def Info: 1.jpg  used on input line 127.
+(pdftex.def)             Requested size: 426.79134pt x 553.95786pt.
+<2.jpg, id=20, 615.2586pt x 790.152pt>
+File: 2.jpg Graphic file (type jpg)
+<use 2.jpg>
+Package pdftex.def Info: 2.jpg  used on input line 133.
+(pdftex.def)             Requested size: 426.79134pt x 548.11113pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 144--145
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 124--125
+Underfull \hbox (badness 10000) in paragraph at lines 146--147
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 173--174
+Underfull \hbox (badness 10000) in paragraph at lines 195--196
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 175--179
+Underfull \hbox (badness 10000) in paragraph at lines 197--201
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 180--184
+Underfull \hbox (badness 10000) in paragraph at lines 202--206
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 185--189
+Underfull \hbox (badness 10000) in paragraph at lines 207--211
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 191--192
+Underfull \hbox (badness 10000) in paragraph at lines 213--214
 
  []
 
-[2] (./report.aux) ) 
+<3.jpg, id=21, 614.295pt x 789.9111pt>
+File: 3.jpg Graphic file (type jpg)
+<use 3.jpg>
+Package pdftex.def Info: 3.jpg  used on input line 225.
+(pdftex.def)             Requested size: 426.79134pt x 548.81184pt.
+<4.jpg, id=22, 613.0905pt x 789.9111pt>
+File: 4.jpg Graphic file (type jpg)
+<use 4.jpg>
+Package pdftex.def Info: 4.jpg  used on input line 230.
+(pdftex.def)             Requested size: 426.79134pt x 549.89662pt.
+<5.jpg, id=23, 617.9085pt x 793.5246pt>
+File: 5.jpg Graphic file (type jpg)
+<use 5.jpg>
+Package pdftex.def Info: 5.jpg  used on input line 234.
+(pdftex.def)             Requested size: 426.79134pt x 548.08954pt.
+<6.jpg, id=24, 616.2222pt x 794.7291pt>
+File: 6.jpg Graphic file (type jpg)
+<use 6.jpg>
+Package pdftex.def Info: 6.jpg  used on input line 239.
+(pdftex.def)             Requested size: 426.79134pt x 550.42519pt.
+[3] [4 <./1.jpg>] [5 <./2.jpg>] [6 <./3.jpg>] [7 <./4.jpg>] [8 <./5.jpg>]
+[9 <./6.jpg>] (./report.aux) ) 
 Here is how much of TeX's memory you used:
- 6194 strings out of 494847
- 101373 string characters out of 6179079
+ 6227 strings out of 494847
+ 101662 string characters out of 6179079
  221471 words of memory out of 5000000
- 9387 multiletter control sequences out of 15000+600000
- 16414 words of font info for 61 fonts, out of 8000000 for 9000
+ 9412 multiletter control sequences out of 15000+600000
+ 16760 words of font info for 62 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
- 37i,8n,35p,841b,199s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmb
-x12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share
-/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmsy7.pfb>
-Output written on report.pdf (2 pages, 128022 bytes).
+ 37i,8n,35p,841b,237s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmti10.pfb>
+Output written on report.pdf (9 pages, 4422139 bytes).
 PDF statistics:
- 59 PDF objects out of 1000 (max. 8388607)
- 42 compressed objects within 1 object stream
+ 92 PDF objects out of 1000 (max. 8388607)
+ 61 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 31 words of extra memory for PDF output out of 10000 (max. 10000000)
 

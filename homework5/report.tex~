@@ -1,0 +1,54 @@
+
+\documentclass{article}
+
+%\usepackage[utf8]{inputenc}
+%\usepackage[a4paper, total={7in, 8in}]{geometry}
+\usepackage[left=15mm,top=26mm,right=8mm,bottom=15mm]{geometry}
+
+\usepackage{spverbatim}
+\usepackage{minted}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{enumerate}
+%\setlength{\voffset}{-0.75in}
+%\setlength{\headsep}{-10pt}
+
+
+%% \title{EECE 5639- Homework 5}
+%% \author{Sreejith Sreekumar: 001277209}
+%% \date{\today}
+\begin{document}
+
+%% \maketitle
+
+\begin{figure}
+\includegraphics[width=15cm]{1_new.jpg}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=15cm]{2.jpg}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=15cm]{3.jpg}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=15cm]{4.jpg}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=15cm]{5.jpg}
+\end{figure}
+
+\begin{figure}
+\includegraphics[width=15cm]{6.jpg}
+\end{figure}
+
+
+
+\end{document}
+
+

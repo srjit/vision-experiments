@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+  \PYG{c}{\PYGZpc{}Creating the image in the question}
+\PYG{k}{  function}\PYG{+w}{ }image \PYG{p}{=}\PYG{+w}{ }\PYG{n+nf}{get\PYGZus{}image}\PYG{p}{()}
+\PYG{+w}{    }\PYG{n}{image} \PYG{p}{=} \PYG{n+nb}{zeros}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{l+m+mi}{8}\PYG{p}{);}
+
+    \PYG{k}{for} \PYG{n}{x} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{l+m+mi}{8}
+        \PYG{k}{for} \PYG{n}{y} \PYG{p}{=} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{l+m+mi}{8}
+            \PYG{n}{image}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)} \PYG{p}{=} \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{x}\PYG{o}{\PYGZhy{}}\PYG{n}{y}\PYG{p}{);}
+        \PYG{k}{end}
+    \PYG{k}{end}
+  \PYG{k}{end}
+\end{Verbatim}

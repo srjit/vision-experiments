@@ -1,0 +1,26 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+  \PYG{p}{[}\PYG{n}{PGmag}\PYG{p}{,} \PYG{n}{PGdir}\PYG{p}{]} \PYG{p}{=} \PYG{n}{imgradient}\PYG{p}{(}\PYG{n}{image}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}prewitt\PYGZsq{}}\PYG{p}{);}
+  \PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{PGmag}\PYG{p}{);}
+  \PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{PGdir}\PYG{p}{);}
+
+  \PYG{c}{\PYGZpc{} Output \PYGZhy{} Disregarding boundaries}
+
+        \PYG{c}{\PYGZpc{} Gradient Magnitude}
+
+             \PYG{l+m+mi}{0}    \PYG{l+m+mf}{5.6569}    \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{8.4853}
+        \PYG{l+m+mf}{5.6569}         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{5.6569}    \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{8.4853}
+        \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{5.6569}         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{5.6569}    \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{8.4853}
+        \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{5.6569}         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{5.6569}    \PYG{l+m+mf}{8.4853}
+        \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{5.6569}         \PYG{l+m+mi}{0}    \PYG{l+m+mf}{5.6569}
+        \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{8.4853}    \PYG{l+m+mf}{5.6569}         \PYG{l+m+mi}{0}
+
+        \PYG{c}{\PYGZpc{} Gradient Orientation}
+
+
+                \PYG{l+m+mi}{0}   \PYG{l+m+mf}{45.0000}   \PYG{l+m+mf}{45.0000}   \PYG{l+m+mf}{45.0000}   \PYG{l+m+mf}{45.0000}   \PYG{l+m+mf}{45.0000}
+        \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000}         \PYG{l+m+mi}{0}   \PYG{l+m+mf}{45.0000}   \PYG{l+m+mf}{45.0000}   \PYG{l+m+mf}{45.0000}   \PYG{l+m+mf}{45.0000}
+        \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000}         \PYG{l+m+mi}{0}   \PYG{l+m+mf}{45.0000}   \PYG{l+m+mf}{45.0000}   \PYG{l+m+mf}{45.0000}
+        \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000}         \PYG{l+m+mi}{0}   \PYG{l+m+mf}{45.0000}   \PYG{l+m+mf}{45.0000}
+        \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000}         \PYG{l+m+mi}{0}   \PYG{l+m+mf}{45.0000}
+        \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000} \PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{135.0000}         \PYG{l+m+mi}{0}
+\end{Verbatim}

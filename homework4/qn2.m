@@ -68,42 +68,50 @@ disp(cross_correlation_score);
 %Part 3 
 % Normalized Cross Correlation
 
+%normxcorr2(template, image)
+
+
+
+
+
+
+
+
+
+
 normalized_image = zeros(8,8);
-normalized_template = zeros(3,3);
+%normalized_template = zeros(3,3);
 
 for i=2:7
     for j=2:7
-      denominator = f(i-1, j-1) .^2 + ...
-                  + f(i-1, j) .^2 + ...
-                  + f(i-1, j+1) .^2 + ...
-                  + f(i, j-1) .^2 ...
-                  + f(i,j) .^2 ...
-                  + f(i,j+1) .^2 ...
-                  + f(i+1,j-1) .^2 ...
-                  + f(i+1,j) .^2 ...
-                  + f(i+1,j+1) .^2;
+      denominator = f(i-1, j-1).^2 + ...
+                  + f(i-1, j).^2 + ...
+                  + f(i-1, j+1).^2 + ...
+                  + f(i, j-1).^2 ...
+                  + f(i,j).^2 ...
+                  + f(i,j+1).^2 ...
+                  + f(i+1,j-1).^2 ...
+                  + f(i+1,j).^2 ...
+                  + f(i+1,j+1).^2;
        denominator = sqrt(denominator);
-       normalized_image(i,j) = (f(i,j) / denominator);
+       if denominator == 0
+        normalized_image(i,j) = 0;
+       else
+        normalized_image(i,j) = (f(i,j) / denominator);
+       end
     end
 end
 
-denominator = sqrt(g(1,1).^2 + g(1,2).^2 + g(1,3).^2 + g(2,1).^2 ...
-    + g(2,2).^2 + g(2,3).^2 + g(3,1).^2 + g(3,2).^2 + g(3,3).^2);
+% denominator = sqrt(g(1,1).^2 + g(1,2).^2 + g(1,3).^2 + g(2,1).^2 ...
+%     + g(2,2).^2 + g(2,3).^2 + g(3,1).^2 + g(3,2).^2 + g(3,3).^2);
 
-normalized_template(2,2) = g(2,2)/denominator;
+normalized_template = g./sqrt(sum(sum(g.^2)));
+normalized_cross_correlation = imfilter(normalized_image,normalized_template);
 
-
-normalized_cross_correlation = imfilter(normalized_image,template);
+normalized_cross_correlation(1,:) = 0;
+normalized_cross_correlation(:,1) = 0;
+normalized_cross_correlation(8,:) = 0;
+normalized_cross_correlation(:,8) = 0;
 
 disp("Normalized Cross Correlation");
 disp(normalized_cross_correlation);
-
-
-
-
-
-
-
-
-
-

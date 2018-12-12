@@ -1,0 +1,26 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+  \PYG{p}{[}\PYG{n}{SGmag}\PYG{p}{,} \PYG{n}{SGdir}\PYG{p}{]} \PYG{p}{=} \PYG{n}{imgradientxy}\PYG{p}{(}\PYG{n}{image}\PYG{p}{);}
+  \PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{SGmag}\PYG{p}{);}
+  \PYG{n+nb}{disp}\PYG{p}{(}\PYG{n}{SGdir}\PYG{p}{);}
+
+  \PYG{c}{\PYGZpc{} Output \PYGZhy{} Disregarding boundaries}
+
+        \PYG{c}{\PYGZpc{} Gradient Magnitude}
+
+             \PYG{l+m+mi}{0}     \PYG{l+m+mi}{6}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{8}
+            \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{6}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{6}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{8}
+            \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{6}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{6}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{8}
+            \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{6}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{6}     \PYG{l+m+mi}{8}
+            \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{6}     \PYG{l+m+mi}{0}     \PYG{l+m+mi}{6}
+            \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{6}     \PYG{l+m+mi}{0}
+
+
+        \PYG{c}{\PYGZpc{} Gradient Orientation}
+
+            \PYG{l+m+mi}{0}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{6}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}
+            \PYG{l+m+mi}{6}     \PYG{l+m+mi}{0}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{6}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}
+            \PYG{l+m+mi}{8}     \PYG{l+m+mi}{6}     \PYG{l+m+mi}{0}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{6}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}
+            \PYG{l+m+mi}{8}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{6}     \PYG{l+m+mi}{0}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{6}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{8}
+            \PYG{l+m+mi}{8}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{6}     \PYG{l+m+mi}{0}    \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{6}
+            \PYG{l+m+mi}{8}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{8}     \PYG{l+m+mi}{6}     \PYG{l+m+mi}{0}
+\end{Verbatim}

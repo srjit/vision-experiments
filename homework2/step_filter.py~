@@ -1,0 +1,8 @@
+
+
+__author__ = "Sreejith Sreekumar"
+__email__ = "sreekumar.s@husky.neu.edu"
+__version__ = "0.0.1"
+
+
+l = [4,4,4,4,8,8,8,8]

@@ -104,7 +104,6 @@ int main(){
   std::cout<<"foo:"<<fundMat;
 
   
-  
   // cv::Mat fundamentalMatrix = get_fundemental_matrix_after_ransac(mappings);
   // std::cout<<"Fundemental Matrix after RANSAC on correspoinding points \n "
   // 	   <<fundamentalMatrix<<"\n";
@@ -113,36 +112,7 @@ int main(){
   /**
    *  dense Disparity Map
    */
-
    getDisparityMap(padded_images[0], padded_images[1], fundMat);
-  // getDisparityMap(im1, im2, fundMat);  
-
-  // std::vector<cv::Point> points1  = getCorrespondancePointsFromImage(mappings, 1);
-  // std::vector<cv::Point> points2  = getCorrespondancePointsFromImage(mappings, 2);
-
-  // cv::Mat H1(4,4, im1.type());
-  // cv::Mat H2(4,4, im2.type());
-
-  
-  // stereoRectifyUncalibrated(points1, points2, fundamentalMatrix, im1.size(), H1, H2);
-
-  // cv::Mat rectified1(im1.size(), im1.type());
-  // cv::warpPerspective(im1, rectified1, H1, im1.size());
-
-  // cv::Mat rectified2(im2.size(), im2.type());
-  // cv::warpPerspective(im2, rectified2, H2, im2.size());
-
-  
-  
-  // // int indexOfImage = 2;
-  // // cv::Mat epipolarLines;
-
-  // // computeCorrespondEpilines(points1, indexOfImage, fundementalMatrix, epipolarLines);
-
-  // namedWindow( "Rect left", WINDOW_AUTOSIZE );  
-  // imshow("Rect Left", rectified1);
-  // waitKey(0);
-
   
 
 }
