@@ -50,7 +50,7 @@
  \end{abstract}
 
 
-\section{Description of Algorithms}
+\section{Description of Algorithms/ Concepts Involved}
 In this section we list and describe all of the algorithms implemented in the completion of this
 project.
 
@@ -121,6 +121,12 @@ where
   a large threshold are said to not fit this constraint, and are
   deleted. The result is approximately 60 robust correspondences
   between the two images.
+
+  \subsection{Stereo Vision and Epipolar Geometry}
+  Stereo vision involves the vision dynamics involved when two cameras take pictures of the same scene, but they are separated by a distance. The shifted amount is called the disparity. The disparity at which objects in the image best match is used by the computer to calculate their depth information.\\
+  Epipolar geometry is the geometry describing stero vision. The essential matrix is a 3 x 3 marix that
+  encodes the epipolar geometry of the two views. Given a point in an image, multiplying by the Essential Matrix, will tell us the epipolar line in the second image where the corresponding point must be.\\
+  
   
   \subsection{Fundemental Matrix}
   The fundamental matrix is a 3 x 3 matrix which relates corresponding points in stereo images. In epipolar geometry
@@ -130,8 +136,11 @@ where
 \[
   x'^{T} F x = 0
   \]
-\subsection{Disparity Map}
+
   
+\subsection{Disparity and Depth}
+Disparity refers to the difference in image location of an object seen by the left and right camera images. The disparity of features between two stereo images are usually computed as a shift to the left of an image feature when viewed in the right image. Stereo images may not always be correctly aligned to allow for quick disparity calculation. For example, the set of cameras may be slightly rotated off level. Through a process known as image rectification, both images are rotated to allow for disparities in only the horizontal direction.\\
+ Disparity information can be useful in depth/distance calculation. Disparity and distance from the cameras are inversely related. As the distance from the cameras increases, the disparity decreases. This allows for depth perception in stereo images. \\
   
 
 \section{Experiments}
@@ -140,8 +149,11 @@ performed in the completion of this project.
 
 \subsection{Reading the image inputs}
 
+The input for the depth map computation are two images of a toy castle. The images are read and converted into grayscale for processing. For detecting the corner features, we add a padding of 20 pixels around the image around its borders. \\ 
+
+
 \subsection{Detecting Corners in the Images}
-For both images, we apply the harris corner detection algorithm and then perform non max
+Harris corner detection algorithm is applied on the images followed by a non max
 supression and thresholding to get the co-ordinates of the corners
 from the images. \\
 
@@ -156,15 +168,7 @@ other template of the second image, constituting a brute force search
 of all point neighborhood correlation combinations between the
 images. The results of this search are sorted by cross correlation
 magnitude and all matches above a tuned correlation threshold are
-kept.
-
-The resulting matches are then pruned by realistic geometric
-constraints. In our case, we know the images are both taken from the
-same viewpoint from a slightly different angle. Thus we eliminate
-correspondences with vertical translations above a small threshold and
-lateral translations above a large threshold, to produce a set of
-robust and realistic correspondences.\\
-
+kept. \\
 
 The correspondences which were found hence are visualized below using lines of different
 colors.
@@ -176,11 +180,25 @@ colors.
   \label{fig:sfig1}
 \end{figure}
 
+\subsection{Computation of Fundemental Matrix - 8 point algorithm}
+
+The fundemental matrix is constructed from the mapped points using the 8 point algorithm.
+The corresponding coordinates of every mapping is taken and we construct a matrix, \textit{A}
+as: \\
+
+\[
+A = \begin{bmatrix} x_{1}x_{1}^{'} & x_{1}y_{1}^{'} & x_{1} & y_{1}x_{1}' & y_{1}y_{1}' & y_{1} & x_{1}' & y_{1}'& 1  \\ \vdots & \vdots & \vdots &\vdots &\vdots & \vdots & \vdots & \vdots &\vdots\\ x_{m}x_{m}^{'} & x_{m}y_{m}^{'} & x_{m} & y_{m}x_{m}' & y_{m}y_{m}' & y_{m} & x_{m}' & y_{m}'& 1 \end{bmatrix}
+\]
+
+
+\subsection{Computing the disparity maps}
 
 
 \section{Conclusion}
 
 
 \section{Appendix}
+
+\subsection{Code}
 
 \end{document}
