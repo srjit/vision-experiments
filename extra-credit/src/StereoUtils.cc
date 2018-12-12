@@ -154,8 +154,12 @@ void getDisparityMap(cv::Mat leftImage,
   int height = rightImage.rows;
 
 
+  cv::Mat dispX(width,height, CV_8U);
+  cv::Mat dispY(width,height, CV_8U);    
 
-  // cv::Mat foo(height, width, CV_8U);
+  cv::Mat disparityMapX(height, width, CV_32F);
+  cv::Mat disparityMapY(height, width, CV_32F);  
+  
   // cv::Mat fooNorm(height, width, CV_8U);  
   
   for(int i=0; i<height; i++){
@@ -176,19 +180,56 @@ void getDisparityMap(cv::Mat leftImage,
       int rightX = 0;
       int rightY = 0;
 	  
-      // if(point.size()>0){
+      if(point.size()>0){
 
-      // 	rightX = point[0];
-      // 	rightY = point[1];
+      	rightX = point[0];
+      	rightY = point[1];
 
-      // }
+      }
 
-      // int disparityX = abs(rightX - leftX);
-      // int disparityY = abs(rightY - leftY);
+      int disparityX = abs(rightX - leftX);
+      int disparityY = abs(rightY - leftY);
+
+      disparityMapX.at<float>(i,j) = disparityX;
+      disparityMapY.at<float>(i,j) = disparityY;      
       
     }
 
   }
+
+  //  std::cout<<disparityMapX;
+
+  // disparity to image X
+  double minValX; 
+  double maxValX; 
+  Point minLocX; 
+  Point maxLocX;
+
+  minMaxLoc( disparityMapX, &minValX, &maxValX, &minLocX, &maxLocX);
+
+  disparityMapX -= minValX;
+  disparityMapX.convertTo(dispX,CV_8U,255.0/(maxValX-minValX));
+
+  namedWindow( "Disparity Horizontal", WINDOW_AUTOSIZE );  
+  imshow("Disparity Horizontal", dispX);
+  waitKey(0);
+  
+
+  double minValY; 
+  double maxValY; 
+  Point minLocY; 
+  Point maxLocY;
+
+  minMaxLoc( disparityMapY, &minValY, &maxValY, &minLocY, &maxLocY);
+
+  disparityMapY -= minValY;
+  disparityMapY.convertTo(dispY,CV_8U,255.0/(maxValY-minValY));
+
+
+  namedWindow( "Disparity Vertical", WINDOW_AUTOSIZE );  
+  imshow("Disparity Vertical", dispY);
+  waitKey(0);
+
 
 
 }
