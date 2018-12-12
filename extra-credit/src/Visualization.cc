@@ -50,9 +50,9 @@ void imageCorrespondences(Mat im1,
   }
 
   // Display test frame
-  namedWindow( "Sample Lines", WINDOW_AUTOSIZE );
-  Mat sampleLines = foo;
-  imshow("Sample Lines", foo);
-  waitKey(0);
+  // namedWindow( "Sample Lines", WINDOW_AUTOSIZE );
+  // Mat sampleLines = foo;
+  //  imshow("Sample Lines", foo);
+  //  waitKey(0);
 
 }

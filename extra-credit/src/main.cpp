@@ -8,13 +8,9 @@
 
 #include <algorithm>
 #include <random>
-#include <eigen3/Eigen/SVD>
-#include <eigen3/Eigen/Dense>
 
-#include <stdio.h>
 #include <iostream>
 #include <opencv2/opencv.hpp>
-#include <opencv2/core/eigen.hpp>
 #include <opencv2/highgui.hpp>
 
 
@@ -91,77 +87,62 @@ int main(){
   cv::Mat A = constructPointsMatrix(mappings);
   cv::Mat W, U, Vt;
   cv::SVD::compute(A, W, U, Vt)	;
-  cv::Mat fundementalMatrix = get_fundemental_matrix_after_ransac(mappings);
-  std::cout<<"Fundemental Matrix after RANSAC on correspoinding points \n "
-	   <<fundementalMatrix<<"\n";
 
+  cv::Mat fundMat(3,3, CV_32F);
 
+  fundMat.at<float>(0,0) = Vt.at<float>(0,8);
+  fundMat.at<float>(0,1) = Vt.at<float>(1,8);
+  fundMat.at<float>(0,2) = Vt.at<float>(2,8);
+  fundMat.at<float>(1,0) = Vt.at<float>(3,8);
+  fundMat.at<float>(1,1) = Vt.at<float>(4,8);
+  fundMat.at<float>(1,2) = Vt.at<float>(5,8);
+  fundMat.at<float>(2,0) = Vt.at<float>(6,8);
+  fundMat.at<float>(2,1) = Vt.at<float>(7,8);
+  fundMat.at<float>(2,2) = Vt.at<float>(8,8);
 
-  // find the epipolar lines for each pixel
-
-  getDisparityMap(im1, im2, fundementalMatrix);
-
-
-  // for every pixel in image 1, find the location in the second image
-  
-  
-  
-
-  
+        
+  std::cout<<"foo:"<<fundMat;
 
   
+  
+  // cv::Mat fundamentalMatrix = get_fundemental_matrix_after_ransac(mappings);
+  // std::cout<<"Fundemental Matrix after RANSAC on correspoinding points \n "
+  // 	   <<fundamentalMatrix<<"\n";
+
 
   /**
-   *  Dense Disparity Map
-   *  https://sourishghosh.com/2016/dense-disparity-maps-orb-descriptors/
-   *
-   *  https://github.com/sourishg/disparity-map/blob/master/epipolar.cpp
+   *  dense Disparity Map
    */
 
-  /**
-   *  Find the pixels along a line
-   *
-   *   For each pixel in first image
-   *      - Find the epipolar line in the right image
-   *      - Examine the epipolar line to determine the best match
-   *      - Triangulate the matches to get depth information
-   */
+   getDisparityMap(padded_images[0], padded_images[1], fundMat);
+  // getDisparityMap(im1, im2, fundMat);  
 
-  std::vector<cv::Point> points1  = getCorrespondancePointsFromImage(mappings, 1);
-  std::vector<cv::Point> points2  = getCorrespondancePointsFromImage(mappings, 2);
-  int indexOfImage = 2;
-  cv::Mat epipolarLines;
+  // std::vector<cv::Point> points1  = getCorrespondancePointsFromImage(mappings, 1);
+  // std::vector<cv::Point> points2  = getCorrespondancePointsFromImage(mappings, 2);
 
-  //computeCorrespondEpilines(points2, indexOfImage, fundementalMatrix, epipolarLines);
-
-  std::cout<<"\n\n";
-  std::cout<<epipolarLines;
-  std::cout<<"\n\n";
-
-
-  // plot the epipolar lines
-  
+  // cv::Mat H1(4,4, im1.type());
+  // cv::Mat H2(4,4, im2.type());
 
   
+  // stereoRectifyUncalibrated(points1, points2, fundamentalMatrix, im1.size(), H1, H2);
 
-  // //  cv::Matx33f m((float*)fundementalMatrix.ptr());
+  // cv::Mat rectified1(im1.size(), im1.type());
+  // cv::warpPerspective(im1, rectified1, H1, im1.size());
 
+  // cv::Mat rectified2(im2.size(), im2.type());
+  // cv::warpPerspective(im2, rectified2, H2, im2.size());
 
-  // // drawing epipolar lines
-  // cv::Mat H1;
-  // cv::Mat H2;
-
-  // cv::Size imgSize(im1.cols, im1.rows);
-  // stereoRectifyUncalibrated(points1, points2, fundementalMatrix, imgSize, H1, H2);
-
-  // // TODO- http://answers.opencv.org/question/90742/opencv-depth-map-from-uncalibrated-stereo-system/
-  // std::cout<<"\n";
-  // std::cout<<fundementalMatrix;
-  std::cout<<"\n";
-
-  // http://www.hasper.info/opencv-draw-epipolar-lines/
-  // drawEpipolarLines("Test", fundementalMatrix, im1, im2, points1, points2);
   
+  
+  // // int indexOfImage = 2;
+  // // cv::Mat epipolarLines;
+
+  // // computeCorrespondEpilines(points1, indexOfImage, fundementalMatrix, epipolarLines);
+
+  // namedWindow( "Rect left", WINDOW_AUTOSIZE );  
+  // imshow("Rect Left", rectified1);
+  // waitKey(0);
+
   
 
 }
