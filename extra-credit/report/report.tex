@@ -190,6 +190,12 @@ as: \\
 A = \begin{bmatrix} x_{1}x_{1}^{'} & x_{1}y_{1}^{'} & x_{1} & y_{1}x_{1}' & y_{1}y_{1}' & y_{1} & x_{1}' & y_{1}'& 1  \\ \vdots & \vdots & \vdots &\vdots &\vdots & \vdots & \vdots & \vdots &\vdots\\ x_{m}x_{m}^{'} & x_{m}y_{m}^{'} & x_{m} & y_{m}x_{m}' & y_{m}y_{m}' & y_{m} & x_{m}' & y_{m}'& 1 \end{bmatrix}
 \]
 
+Now we find the SVD of A, written by:
+\[
+A = UDV^{T}
+\]
+
+The columns of V are the eigenvectors of $A^{T}A$; the last one corresponds to the smallest eigenvalue. The entries of F are the components of the last column of V corresponding to the least singular value.
 
 \subsection{Computing the disparity maps}
 
